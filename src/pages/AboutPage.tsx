@@ -137,6 +137,7 @@ export default function AboutPage() {
           </AnimatedSection>
 
           <div className="lg:w-1/2 flex items-center p-12 md:p-20 lg:p-28">
+            <div className="space-y-8">
               <AnimatedSection>
                 <p className="text-[0.65rem] uppercase tracking-[0.3em] text-on-surface-variant font-semibold">
                   BEHIND THE SCENES
