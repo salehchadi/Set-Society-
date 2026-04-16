@@ -8,31 +8,22 @@ import Button from "../components/ui/Button";
 const VALUES = [
   {
     number: "01",
-    title: "Craftsmanship",
+    title: "Quality First",
     description:
-      "Every stitch tells a story. Our garments are hand-finished in our local atelier by artisans who have dedicated their lives to the art of dressmaking. We never compromise on construction.",
+      "Every piece tells a story. Our garments are carefully crafted, placing a premium on fine details. We never compromise on construction or fabric.",
   },
   {
     number: "02",
-    title: "Sustainability",
+    title: "Thoughtful Design",
     description:
-      "We source our textiles from historic mills committed to ethical production. From organic cotton to responsibly-harvested silk, every material is chosen with intention and care.",
+      "From the initial sketch to the final product, every decision is made with intention. We focus on creating versatile pieces that fit beautifully and stand the test of time.",
   },
   {
     number: "03",
-    title: "Femininity",
+    title: "Modern Femininity",
     description:
-      "Our designs celebrate the modern woman in all her complexity. We create pieces that empower, flatter, and move with you—from the boardroom to the weekend market.",
+      "Our designs celebrate the modern woman in all her complexity. We create pieces that empower, flatter, and move with you—from morning coffee to evening events.",
   },
-];
-
-const MILESTONES = [
-  { year: "2019", event: "Founded in a small atelier with a vision for modern feminine luxury." },
-  { year: "2020", event: "Launched our first capsule collection — The Modern Uniform." },
-  { year: "2021", event: "Expanded to sustainable sourcing partnerships with Italian and Japanese mills." },
-  { year: "2022", event: "Opened our flagship atelier and introduced made-to-measure services." },
-  { year: "2023", event: "Featured in Vogue Arabia and expanded to international shipping." },
-  { year: "2024", event: "Launched our digital atelier experience and new seasonal collections." },
 ];
 
 export default function AboutPage() {
@@ -66,7 +57,7 @@ export default function AboutPage() {
               Our Story
             </span>
             <h1 className="font-serif text-5xl md:text-7xl text-white uppercase leading-[0.9] tracking-tight">
-              THE ATELIER
+              OUR JOURNEY
             </h1>
           </motion.div>
         </div>
@@ -82,22 +73,22 @@ export default function AboutPage() {
           </AnimatedSection>
           <AnimatedSection delay={0.1}>
             <h2 className="font-serif text-4xl md:text-5xl leading-tight text-primary">
-              Where Heritage<br />Meets Modernity
+              Where Quality<br />Meets Everyday Life
             </h2>
           </AnimatedSection>
           <AnimatedSection delay={0.2}>
             <p className="text-sm md:text-base leading-[1.9] text-on-surface-variant max-w-2xl mx-auto">
-              Set Society was born from a simple belief: that modern women deserve clothing crafted with the same care and precision as haute couture, but designed for real life. We bridge the gap between timeless elegance and contemporary function, creating pieces that become the foundation of a confident wardrobe.
+              Set Society was born from a simple belief: that modern women deserve clothing crafted with care and designed for real life. As a newly opened local brand, we are excited to bridge the gap between elegance and contemporary function.
             </p>
           </AnimatedSection>
           <AnimatedSection delay={0.3}>
             <p className="text-sm md:text-base leading-[1.9] text-on-surface-variant max-w-2xl mx-auto">
-              Each garment is more than fabric and thread—it's a commitment to the woman who wears it. From the sourcing of our sustainable textiles to the final hand-stitched detail, every step reflects our devotion to quality, ethics, and beauty.
+              Our first collection is an invitation to discover pieces that become the foundation of a confident wardrobe. Every step reflects our devotion to quality, comfort, and beauty.
             </p>
           </AnimatedSection>
           <AnimatedSection delay={0.4}>
             <div className="pt-4">
-              <span className="font-script text-4xl text-primary">Slow luxury, timeless style.</span>
+              <span className="font-script text-4xl text-primary">A new beginning.</span>
             </div>
           </AnimatedSection>
         </div>
@@ -146,61 +137,35 @@ export default function AboutPage() {
           </AnimatedSection>
 
           <div className="lg:w-1/2 flex items-center p-12 md:p-20 lg:p-28">
-            <div className="space-y-8">
               <AnimatedSection>
                 <p className="text-[0.65rem] uppercase tracking-[0.3em] text-on-surface-variant font-semibold">
-                  THE WORKSHOP
+                  BEHIND THE SCENES
                 </p>
               </AnimatedSection>
               <AnimatedSection delay={0.1}>
                 <h2 className="font-serif text-4xl md:text-5xl leading-tight text-primary">
-                  Our Atelier
+                  Our Space
                 </h2>
               </AnimatedSection>
               <AnimatedSection delay={0.2}>
                 <p className="text-sm md:text-base leading-[1.9] text-on-surface-variant">
-                  Nestled in the heart of our creative studio, our atelier is where vision becomes tangible. Here, our team of skilled artisans work side by side with our designers, ensuring that every pattern is cut with precision and every seam is finished by hand.
+                  We are thrilled to open our doors and share our vision with the local community. Every piece in our collection is curated and prepared with the utmost attention to detail, right here in our workspace.
                 </p>
               </AnimatedSection>
               <AnimatedSection delay={0.3}>
                 <p className="text-sm md:text-base leading-[1.9] text-on-surface-variant">
-                  We embrace the philosophy of slow fashion — taking the time to perfect each piece rather than chasing trends. The result is a collection of timeless garments that transcend seasons and stand the test of time.
+                  As an emerging local brand, your support means everything to us. We look forward to growing alongside you and continuing to bring thoughtfully designed fashion to your everyday life.
                 </p>
               </AnimatedSection>
               <AnimatedSection delay={0.4}>
-                <span className="font-script text-3xl text-primary">Precision in every detail.</span>
+                <span className="font-script text-3xl text-primary">Thank you for being here.</span>
               </AnimatedSection>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Timeline */}
-      <section className="py-32 px-6 md:px-12 max-w-[1920px] mx-auto">
-        <AnimatedSection className="text-center mb-20">
-          <p className="text-[0.65rem] uppercase tracking-[0.3em] text-on-surface-variant font-semibold mb-2">
-            OUR JOURNEY
-          </p>
-          <h2 className="font-serif text-4xl md:text-5xl uppercase tracking-tighter text-primary">
-            Milestones
-          </h2>
-        </AnimatedSection>
 
-        <div className="max-w-2xl mx-auto">
-          {MILESTONES.map((milestone, i) => (
-            <AnimatedSection key={milestone.year} delay={i * 0.08}>
-              <div className="flex gap-8 py-8 border-b border-primary/10 last:border-0">
-                <span className="font-serif text-2xl md:text-3xl text-primary/20 shrink-0 w-20">
-                  {milestone.year}
-                </span>
-                <p className="text-sm md:text-base leading-[1.8] text-on-surface-variant pt-2">
-                  {milestone.event}
-                </p>
-              </div>
-            </AnimatedSection>
-          ))}
-        </div>
-      </section>
 
       {/* CTA */}
       <section className="py-32 px-8 bg-primary text-white overflow-hidden relative">
