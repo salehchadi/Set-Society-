@@ -14,7 +14,7 @@ export default function NewArrivals() {
             New Arrivals
           </h2>
           <p className="text-[0.65rem] text-on-surface-variant uppercase tracking-[0.2em] font-semibold">
-            COLLECTION 2024
+            COLLECTION 2026
           </p>
         </div>
         <Link

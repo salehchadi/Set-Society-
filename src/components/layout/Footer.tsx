@@ -45,7 +45,7 @@ export default function Footer() {
             ))}
           </div>
           <p className="text-[0.6rem] uppercase tracking-[0.25em] text-primary/40">
-            © 2024 DIGITAL ATELIER. ALL RIGHTS RESERVED.
+            © 2026 SET SOCIETY. ALL RIGHTS RESERVED.
           </p>
         </div>
       </div>

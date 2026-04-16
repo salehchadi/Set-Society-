@@ -85,7 +85,7 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
                 ))}
               </div>
               <p className="text-[0.55rem] uppercase tracking-[0.25em] text-primary/30">
-                © 2024 SET SOCIETY
+                © 2026 SET SOCIETY
               </p>
             </div>
           </motion.nav>
