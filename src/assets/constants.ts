@@ -1,8 +1,13 @@
+import logoImg from './images/logo.png';
+import mainImg from './images/main_image.png';
+import whiteDressImg from './images/white_dress.png';
+import blackDressImg from './images/black_dress.png';
+
 export const IMAGES = {
-  logo: "https://placehold.co/400x100/transparent/000000/png?text=SET+SOCIETY&font=playfair-display",
-  hero: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=2000&auto=format&fit=crop",
-  product1: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=2000&auto=format&fit=crop",
-  product2: "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?q=80&w=1780&auto=format&fit=crop",
+  logo: logoImg,
+  hero: mainImg,
+  product1: whiteDressImg,
+  product2: blackDressImg,
 };
 
 export interface Product {
