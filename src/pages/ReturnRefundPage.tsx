@@ -4,82 +4,32 @@ import AnimatedSection from "../components/ui/AnimatedSection";
 
 const SECTIONS = [
   {
-    title: "Return Policy",
+    title: "Return & Exchange Policy",
     content: [
-      "At Set Society, we want you to love every piece as much as we do. If for any reason you are not completely satisfied with your purchase, we offer a straightforward return process.",
-      "Items may be returned within 14 days of delivery for a full refund to the original payment method. All items must be unworn, unwashed, and in their original packaging with all tags attached.",
+      "At our brand, your experience means everything to us. We always strive to deliver the best quality and make sure you’re completely satisfied with your purchase 🤍"
     ],
-  },
-  {
-    title: "Return Conditions",
     items: [
-      "Items must be returned within 14 calendar days of the delivery date.",
-      "All products must be in their original, unworn condition with tags attached.",
-      "Items must be returned in their original packaging, including the Set Society garment bag.",
-      "Intimates, swimwear, and personalized items are final sale and cannot be returned.",
-      "Sale items marked as \"Final Sale\" are not eligible for returns or exchanges.",
-      "Gift cards are non-refundable and cannot be returned for cash value.",
-    ],
+      "You can request a return or exchange within 14 days of receiving your order.",
+      "Returns and exchanges are accepted with only the delivery fees covered by the customer.",
+      "For your convenience and peace of mind, you’re allowed to open and check your package while the courier is waiting before confirming your order."
+    ]
   },
   {
-    title: "How to Return",
-    steps: [
-      {
-        number: "01",
-        title: "Initiate Your Return",
-        description:
-          "Contact our Atelier Care team at returns@setsociety.com with your order number and reason for return. You will receive a return authorization within 24 hours.",
-      },
-      {
-        number: "02",
-        title: "Prepare Your Package",
-        description:
-          "Place the item(s) in their original packaging with all tags attached. Include the return authorization slip provided by our team.",
-      },
-      {
-        number: "03",
-        title: "Ship Your Return",
-        description:
-          "Use the prepaid shipping label included in your return authorization email. Drop off the package at your nearest carrier location.",
-      },
-      {
-        number: "04",
-        title: "Receive Your Refund",
-        description:
-          "Once we receive and inspect your return, your refund will be processed within 5–7 business days to your original payment method.",
-      },
-    ],
-  },
-  {
-    title: "Refund Timeline",
+    title: "Conditions",
     content: [
-      "Refunds are processed to the original payment method within 5–7 business days of receiving your return at our atelier. Please note that your financial institution may take an additional 3–5 business days to reflect the refund in your account.",
-    ],
-    details: [
-      { label: "Credit/Debit Card", value: "5–10 business days" },
-      { label: "PayPal", value: "3–5 business days" },
-      { label: "Store Credit", value: "Instant upon approval" },
-      { label: "Bank Transfer", value: "7–10 business days" },
-    ],
+      "Please make sure items are returned in their original condition, unused, with all tags attached, and in the same condition they were delivered.",
+      "Kindly note: Returns or exchanges will not be accepted if the product or receipt (ticket) is missing, damaged, or not in its original delivery condition."
+    ]
   },
   {
-    title: "Exchanges",
+    title: "Need Help?",
     content: [
-      "We are happy to offer exchanges for different sizes or colors, subject to availability. To initiate an exchange, please contact our Atelier Care team. Exchanges follow the same 14-day window as returns.",
-      "If the desired item is a different price than your original purchase, we will charge or refund the difference accordingly.",
-    ],
-  },
-  {
-    title: "Contact Our Atelier Care Team",
-    content: [
-      "Our dedicated team is available to assist you with any questions regarding returns, refunds, or exchanges. We are committed to making your experience seamless and pleasant.",
+      "If you need any help, our team is always here for you!"
     ],
     contact: [
-      { label: "Email", value: "care@setsociety.com" },
-      { label: "WhatsApp", value: "+1 (555) SET-CARE" },
-      { label: "Hours", value: "Monday – Friday, 9AM – 6PM EST" },
-    ],
-  },
+      { label: "Email", value: "care@setsociety.com" }
+    ]
+  }
 ];
 
 export default function ReturnRefundPage() {

@@ -1,8 +1,8 @@
 export const IMAGES = {
-  logo: "https://lh3.googleusercontent.com/aida-public/AB6AXuCWdpKQK-FY4AGoqcKLMfQHvhVcB-wifp_pznznSaQCQw2-ZaTFxmcWqMi8Zjvp4PPtffx0yrfKzSxBXDaScJhUQIO_IZnzgWW92ygBQFhgjwWpuoTBFwbeQyCsKPdP_IC6wZXqLo806EsCifLN11Csk0Wao5vUzGjCk29RlJK0krkQrvi0MS5zhrnY6g9QPkqMZK6twfQBVcN902-XRUec-1bSOnv5PvCiiVpti9cobmIkAOAfbjqWbIYcMcEQxjyq_wMWsTAHEx3G",
-  hero: "https://lh3.googleusercontent.com/aida/ADBb0uiox1NxEzufZOuZflFKJACZYgniIBdb6r17WKHXWO3UiwMiFb2ypO8wS2DcRadfSxaS7oi74rV4IBO9vROFMvZwGPtikGa_rGiBhMngp_IBopYAFi4fV-jd9X4cIzwdP_EU-94zM7tZu7rlmkuGFRRgbwtVFe8hH4Jm1xHpmq0zuWSbSORnL-CVIAuPDjfqztpUdSHCaluwiYQhnfxf2OCsuz4Pb8sHECxExReZY8YM5BVMx5sfLfXEbgNRlH4FwhxWOEdB2MIaIv8",
-  product1: "https://lh3.googleusercontent.com/aida/ADBb0uiu669mLZhfEVlmOqzpF0y6-uwhvkuwmF09RCzoMIm5JrJWZvhuRCnS5y7LgJL_FaC3HSNd0tudk0g_Ue8NrE2gaJEoM33b8pPCsCkB2aAMSbMf__uGC-gnMbS13NcExx63c6bWcWp2opx5aFmSB_LcULHsYbXv7t_QG5xyCTLoAyZGRtqaSnGVX4z8Yo3RJmkl95VbJREC1yrV5p-bco8yiC5Gzwx9zHK6XydcgCBhys0KaRO9qTxzCMhJ4JGVJchYtq5N22TG1oo",
-  product2: "https://lh3.googleusercontent.com/aida/ADBb0uhW8148dKV5XaqNRcm2Gw8V5S9MWLPGQKtOQuuDUsyrzENMXDV3hBuxW82eQKiUl6D1q6aHN_hD5H4oCJK5g-i3nrUz9M7xALgWFDPW9UV4-62qKqjLz-JKYs52W8MgmxpNQTlKvopcX7ME3iX4ePOysdPlt57KGsRAyDy3vOwJhJnUCF8GinXA430go4YXQ_BNk-PFIcO3M8GJLWJyAvDVLzozlD7P2qA7zX4AnhtSRK3Sdi4pnqrAbt1W1-1UAGcMzTYcM-cL4SU",
+  logo: "https://placehold.co/400x100/transparent/000000/png?text=SET+SOCIETY&font=playfair-display",
+  hero: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=2000&auto=format&fit=crop",
+  product1: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=2000&auto=format&fit=crop",
+  product2: "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?q=80&w=1780&auto=format&fit=crop",
 };
 
 export interface Product {
