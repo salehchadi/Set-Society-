@@ -1,107 +1,89 @@
-import { motion } from "motion/react";
+import { useRef } from "react";
+import { motion, useScroll, useTransform, useMotionTemplate } from "motion/react";
 import { IMAGES } from "../../assets/constants";
 import Button from "../ui/Button";
 import { useNavigate } from "react-router-dom";
 
 export default function HeroSection() {
   const navigate = useNavigate();
+  const containerRef = useRef<HTMLElement>(null);
 
-  // Animation variants
-  const leftPanel = {
-    animate: {
-      x: ["-100%", "0%", "0%", "-35%"],
-    },
-  };
+  // Track scroll within this 200vh section to drive the animation
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end end"]
+  });
 
-  const rightPanel = {
-    animate: {
-      x: ["100%", "0%", "0%", "35%"],
-    },
-  };
+  // Calculate the V-opening coordinates based on scroll progress
+  // Fully closed (0%): The V is collapsed at the top (0,0)
+  // Fully open (100%): The V top corners reach 50% height, and the V bottom point (zipper pull) reaches 82% height.
+  // This matches the angle of the jacket in 'coming soon.jpg'
+  const valTopY = useTransform(scrollYProgress, [0, 1], [0, 48]);
+  const valY = useTransform(scrollYProgress, [0, 1], [0, 83]);
 
-  const zipperPull = {
-    animate: {
-      y: ["100vh", "0vh", "0vh", "35vh"],
-    },
-  };
+  // clipPath covers everything EXCEPT the V-opening.
+  // Starts as a full rectangle (0 0, 50 0, 100 0, 100 100, 0 100)
+  // Opens to (0 48%, 50 83%, 100 48%, 100 100%, 0 100%)
+  const clipPath = useMotionTemplate`polygon(0% ${valTopY}%, 50% ${valY}%, 100% ${valTopY}%, 100% 100%, 0% 100%)`;
 
-  const transitionConfig = {
-    duration: 3.5,
-    times: [0, 0.4, 0.6, 1], // 0 -> 40% (close), 40% -> 60% (pause), 60% -> 100% (open half)
-    ease: "easeInOut",
-  };
+  // Position the zipper pull exactly at the bottom of the V
+  const zipperTop = useMotionTemplate`${valY}%`;
+
+  // Button opacity fades in towards the end of the scroll
+  const buttonOpacity = useTransform(scrollYProgress, [0.8, 1], [0, 1]);
 
   return (
-    <section className="relative h-[90vh] min-h-[700px] overflow-hidden bg-surface-container-low">
-      {/* Background Image (coming soong) */}
-      <motion.div
-        initial={{ scale: 1.1 }}
-        animate={{ scale: 1 }}
-        transition={{ duration: 4, ease: "easeOut" }}
-        className="absolute inset-0"
-      >
-        <img
-          src={IMAGES.hero}
-          alt="Coming Soon"
-          className="w-full h-full object-cover"
-          referrerPolicy="no-referrer"
-        />
-        <div className="absolute inset-0 bg-black/10" />
-      </motion.div>
-
-      {/* Zipper Left Panel */}
-      <motion.div
-        variants={leftPanel}
-        animate="animate"
-        transition={transitionConfig}
-        className="absolute left-0 top-0 w-1/2 h-full bg-[#0a0a0a] z-20 border-r border-[#222]"
-        style={{ originX: 0 }}
-      />
-
-      {/* Zipper Right Panel */}
-      <motion.div
-        variants={rightPanel}
-        animate="animate"
-        transition={transitionConfig}
-        className="absolute right-0 top-0 w-1/2 h-full bg-[#0a0a0a] z-20 border-l border-[#222]"
-        style={{ originX: 1 }}
-      />
-
-      {/* Zipper Pull (Head) */}
-      <motion.div
-        variants={zipperPull}
-        animate="animate"
-        transition={transitionConfig}
-        className="absolute left-1/2 top-0 -translate-x-1/2 z-30 flex flex-col items-center"
-      >
-        <div className="w-5 h-8 bg-zinc-400 rounded-sm shadow-[0_4px_10px_rgba(0,0,0,0.5)] border border-zinc-300 relative flex items-center justify-center">
-          {/* Internal detail of zipper */}
-          <div className="w-1 h-4 bg-zinc-600 rounded-full" />
+    <section ref={containerRef} className="relative h-[200vh] bg-[#05070A]">
+      <div className="sticky top-0 h-screen w-full overflow-hidden">
+        
+        {/* Background Image (coming soon image with the actual zipper teeth and text) */}
+        <div className="absolute inset-0">
+          <img
+            src={IMAGES.hero}
+            alt="Coming Soon"
+            className="w-full h-full object-cover object-top"
+            referrerPolicy="no-referrer"
+          />
         </div>
-        {/* Zipper Tab */}
-        <motion.div 
-           initial={{ rotateX: 0 }}
-           animate={{ rotateX: [0, -30, 0, 30] }}
-           transition={{ duration: 3.5, times: [0, 0.4, 0.6, 1] }}
-           className="w-3 h-10 bg-zinc-500 rounded-b-md shadow-lg -mt-1 origin-top border border-zinc-400"
-        />
-      </motion.div>
 
-      {/* Content (Button) fading in after animation */}
-      <div className="absolute inset-0 flex flex-col justify-end items-center p-8 md:p-16 z-10 pointer-events-none">
+        {/* Dynamic Dark Overlay (Acts as the unzipping jacket) */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 3.5, duration: 0.8 }}
-          className="pointer-events-auto"
+          style={{ clipPath }}
+          className="absolute inset-0 bg-[#05070A] shadow-[0_-20px_50px_rgba(0,0,0,0.8)] z-20"
         >
-          <Button
-            className="!bg-white !text-black hover:!bg-gray-200 uppercase tracking-widest text-sm py-4 px-10 shadow-xl"
-            onClick={() => navigate("/products")}
-          >
-            Shop Collection
-          </Button>
+          {/* Add a subtle internal shadow along the edges of the cut */}
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,transparent_50%,rgba(0,0,0,0.5)_100%)]" />
         </motion.div>
+
+        {/* Zipper Pull (Head) overlaying the clip-path vertex */}
+        <motion.div
+          style={{ top: zipperTop }}
+          className="absolute left-1/2 -translate-x-1/2 z-30 flex flex-col items-center -translate-y-[10%]"
+        >
+          <div className="w-6 h-9 bg-zinc-300 rounded-sm shadow-[0_4px_15px_rgba(0,0,0,0.8)] border-2 border-zinc-500 relative flex items-center justify-center">
+            {/* Internal detail of zipper */}
+            <div className="w-1.5 h-5 bg-zinc-700 rounded-full" />
+          </div>
+          {/* Zipper Tab hanging down */}
+          <motion.div 
+             style={{
+                rotateX: useTransform(scrollYProgress, [0, 1], [0, 25])
+             }}
+             className="w-3.5 h-12 bg-[#9ca3af] rounded-b-md shadow-2xl -mt-1 origin-top border border-zinc-400 z-40"
+          />
+        </motion.div>
+
+        {/* Content (Button) fading in after zipper is mostly open */}
+        <div className="absolute inset-0 flex flex-col justify-end items-center p-8 md:p-16 z-50 pointer-events-none">
+          <motion.div style={{ opacity: buttonOpacity }} className="pointer-events-auto">
+            <Button
+              className="!bg-white !text-black hover:!bg-gray-200 uppercase tracking-widest text-sm py-4 px-10 shadow-xl"
+              onClick={() => navigate("/products")}
+            >
+              Shop Collection
+            </Button>
+          </motion.div>
+        </div>
       </div>
     </section>
   );
