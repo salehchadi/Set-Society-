@@ -14,10 +14,10 @@ export default function BrandStory() {
             OUR STORY
           </p>
           <h2 className="font-serif text-4xl md:text-5xl leading-tight text-primary">
-            Local Passion,<br />Modern Style
+            Less Effort.<br />Better Outfits.
           </h2>
           <p className="text-sm md:text-base leading-[1.8] text-on-surface-variant max-w-lg mx-auto">
-            Born from a love for true quality and contemporary design, our newly established local brand is dedicated to crafting beautiful, high-quality pieces that elevate your everyday wardrobe.
+            Set Society was created with everyday simplicity in mind. We believe in crafting basic, elevated sets designed to make getting ready feel easier, without compromising on comfort or style.
           </p>
           <div className="pt-6">
             <span className="font-script text-4xl text-primary">Made with care.</span>

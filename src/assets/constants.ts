@@ -1,14 +1,32 @@
 import logoImg from './images/logo.png';
-import mainImg from './images/main_image.png';
-import whiteDressImg from './images/white_dress.png';
+import comingSoonImg from './images/coming soon.jpg';
+import blackJacketImg from './images/BLACK_jacket.jpg';
+import blackPantsImg from './images/black pants.jpg';
 import blackDressImg from './images/black_dress.png';
+import whiteJacketImg from './images/white jacket.jpg';
+import whitePantsImg from './images/white pants.jpg';
+import whiteDressImg from './images/white_dress.png';
 
 export const IMAGES = {
   logo: logoImg,
-  hero: mainImg,
-  product1: whiteDressImg,
-  product2: blackDressImg,
+  hero: comingSoonImg,
+  blackJacket: blackJacketImg,
+  blackPants: blackPantsImg,
+  blackDress: blackDressImg,
+  whiteJacket: whiteJacketImg,
+  whitePants: whitePantsImg,
+  whiteDress: whiteDressImg,
 };
+
+export interface SizeChartRow {
+  feature: string;
+  xs: string;
+  s: string;
+  m: string;
+  l: string;
+  xl: string;
+  notes?: string;
+}
 
 export interface Product {
   id: string;
@@ -21,106 +39,105 @@ export interface Product {
   image: string;
   description: string;
   isNew?: boolean;
+  sizeChart?: SizeChartRow[];
 }
+
+const topSizeChart: SizeChartRow[] = [
+  { feature: "Length", xs: "59", s: "61", m: "63", l: "65", xl: "67" },
+  { feature: "Chest", xs: "49", s: "51", m: "53", l: "55", xl: "57" },
+  { feature: "Sleeve Length", xs: "59.25", s: "60", m: "60.75", l: "61.5", xl: "62.5", notes: "Cuff = 6cm" },
+  { feature: "Biceps", xs: "27.25", s: "28", m: "28.75", l: "29.5", xl: "30.25" },
+];
+
+const pantSizeChart: SizeChartRow[] = [
+  { feature: "Pant - Length", xs: "111", s: "111", m: "111", l: "111", xl: "111" },
+  { feature: "Pant - Waist", xs: "40.5", s: "42.5", m: "44.5", l: "46.5", xl: "48.5" },
+  { feature: "Pant - Hip", xs: "47", s: "49.25", m: "51.5", l: "54", xl: "56" },
+];
 
 export const PRODUCTS: Product[] = [
   {
     id: "1",
-    name: "Running Errands Set",
-    price: 420,
-    category: "Sets",
-    color: "Ivory",
+    name: "Classic Black Jacket",
+    price: 1300,
+    category: "Outerwear",
+    color: "Black",
     sizes: ["XS", "S", "M", "L", "XL"],
-    material: "Premium Technical Knit",
-    image: IMAGES.product1,
-    description: "A refined two-piece set crafted from our signature technical knit. Designed for the woman who moves with intention, from morning errands to afternoon meetings.",
+    material: "Premium Blend",
+    image: IMAGES.blackJacket,
+    description: "Our signature high-quality black jacket, built for everyday elegance.",
     isNew: true,
+    sizeChart: topSizeChart,
   },
   {
     id: "2",
-    name: "Running Errands Set",
-    price: 580,
-    category: "Sets",
+    name: "Classic Black Pants",
+    price: 1250,
+    category: "Bottoms",
     color: "Black",
-    sizes: ["XS", "S", "M", "L"],
-    material: "Premium Technical Knit",
-    image: IMAGES.product2,
-    description: "Our bestselling set reimagined in timeless black. The same impeccable fit with an edge of sophistication for evening transitions.",
+    sizes: ["XS", "S", "M", "L", "XL"],
+    material: "Premium Blend",
+    image: IMAGES.blackPants,
+    description: "Elevated black trousers that fit perfectly and flow with you.",
     isNew: true,
+    sizeChart: pantSizeChart,
   },
   {
     id: "3",
-    name: "La Femme Blazer",
-    price: 780,
-    category: "Outerwear",
-    color: "Taupe",
-    sizes: ["XS", "S", "M", "L"],
-    material: "Quality Wool Blend",
-    image: IMAGES.product1,
-    description: "An architectural blazer with feminine proportions. Tailored from high quality wool blend with a subtle drape that flatters every silhouette.",
+    name: "Modern Black Dress Set",
+    price: 2300,
+    category: "Sets",
+    color: "Black",
+    sizes: ["XS", "S", "M", "L", "XL"],
+    material: "Premium Blend",
+    image: IMAGES.blackDress,
+    description: "The complete modern uniform. An exquisite black dress set for any occasion.",
     isNew: true,
+    sizeChart: topSizeChart, // Assuming top measurements serve as dress proxy
   },
   {
     id: "4",
-    name: "Silk Camisole",
-    price: 290,
-    category: "Tops",
-    color: "Champagne",
+    name: "Classic White Jacket",
+    price: 1300,
+    category: "Outerwear",
+    color: "White",
     sizes: ["XS", "S", "M", "L", "XL"],
-    material: "Premium Silk",
-    image: IMAGES.product2,
-    description: "Liquid silk that skims the body with effortless grace. Beautiful seam finishing and adjustable straps for a custom fit.",
+    material: "Premium Blend",
+    image: IMAGES.whiteJacket,
+    description: "Our signature high-quality white jacket, bringing a refined brightness to your wardrobe.",
+    isNew: true,
+    sizeChart: topSizeChart,
   },
   {
     id: "5",
-    name: "High-Waist Trouser",
-    price: 520,
+    name: "Classic White Pants",
+    price: 1250,
     category: "Bottoms",
-    color: "Espresso",
-    sizes: ["XS", "S", "M", "L"],
-    material: "Cotton Twill",
-    image: IMAGES.product1,
-    description: "A monument to modern tailoring. These high-waisted trousers are cut with a wide leg that elongates the frame.",
+    color: "White",
+    sizes: ["XS", "S", "M", "L", "XL"],
+    material: "Premium Blend",
+    image: IMAGES.whitePants,
+    description: "Elegant white trousers designed for ease and sophistication.",
+    isNew: true,
+    sizeChart: pantSizeChart,
   },
   {
     id: "6",
-    name: "Classic Wrap Dress",
-    price: 680,
-    category: "Dresses",
-    color: "Dusty Rose",
-    sizes: ["S", "M", "L"],
-    material: "Crepe",
-    image: IMAGES.product2,
-    description: "Our new wrap dress in a romantic dusty rose. The crepe fabric drapes beautifully, creating a fluid silhouette.",
-    isNew: true,
-  },
-  {
-    id: "7",
-    name: "Cozy Knit Cardigan",
-    price: 890,
-    category: "Outerwear",
-    color: "Oat",
+    name: "Modern White Dress Set",
+    price: 2300,
+    category: "Sets",
+    color: "White",
     sizes: ["XS", "S", "M", "L", "XL"],
-    material: "Premium Knit",
-    image: IMAGES.product1,
-    description: "Pure soft knit, crafted with care. A cozy piece designed to be your everyday go-to.",
-  },
-  {
-    id: "8",
-    name: "Pleated Midi Skirt",
-    price: 460,
-    category: "Bottoms",
-    color: "Stone",
-    sizes: ["XS", "S", "M", "L"],
-    material: "Premium Crepe",
-    image: IMAGES.product2,
-    description: "Micro-pleating creates mesmerizing movement. Cut for a structured yet fluid aesthetic.",
+    material: "Premium Blend",
+    image: IMAGES.whiteDress,
+    description: "A breathtaking white dress set offering effortless grace and a clean silhouette.",
     isNew: true,
+    sizeChart: topSizeChart, // Assuming top measurements serve as dress proxy
   },
 ];
 
-export const CATEGORIES = ["All", "Sets", "Tops", "Bottoms", "Dresses", "Outerwear"];
-export const COLORS = ["All", "Ivory", "Black", "Taupe", "Champagne", "Espresso", "Dusty Rose", "Oat", "Stone"];
+export const CATEGORIES = ["All", "Sets", "Outerwear", "Bottoms"];
+export const COLORS = ["All", "Black", "White"];
 export const SIZES = ["XS", "S", "M", "L", "XL"];
 export const SORT_OPTIONS = [
   { value: "newest", label: "Newest" },

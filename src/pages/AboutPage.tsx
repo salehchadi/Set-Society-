@@ -10,19 +10,19 @@ const VALUES = [
     number: "01",
     title: "Quality First",
     description:
-      "Every piece tells a story. Our garments are carefully crafted, placing a premium on fine details. We never compromise on construction or fabric.",
+      "Every piece is made with care and attention to detail. We focus on thoughtful construction and fabric choices that feel good and last.",
   },
   {
     number: "02",
     title: "Thoughtful Design",
     description:
-      "From the initial sketch to the final product, every decision is made with intention. We focus on creating versatile pieces that fit beautifully and stand the test of time.",
+      "From first sketch to final piece, everything is considered with intention. We create versatile sets that are easy to wear and made to move with your everyday life.",
   },
   {
     number: "03",
     title: "Modern Femininity",
     description:
-      "Our designs celebrate the modern woman in all her complexity. We create pieces that empower, flatter, and move with you—from morning coffee to evening events.",
+      "A balance of modesty and ease. Soft, considered pieces designed to feel natural, effortless, and quietly confident.",
   },
 ];
 
@@ -78,12 +78,12 @@ export default function AboutPage() {
           </AnimatedSection>
           <AnimatedSection delay={0.2}>
             <p className="text-sm md:text-base leading-[1.9] text-on-surface-variant max-w-2xl mx-auto">
-              Set Society was born from a simple belief: that modern women deserve clothing crafted with care and designed for real life. As a newly opened local brand, we are excited to bridge the gap between elegance and contemporary function.
+              Set Society was created with everyday simplicity in mind. Our founder, a new mother and former athlete, experienced firsthand how challenging it can be to get dressed while balancing the demands of daily life—especially when time and energy are limited.
             </p>
           </AnimatedSection>
           <AnimatedSection delay={0.3}>
             <p className="text-sm md:text-base leading-[1.9] text-on-surface-variant max-w-2xl mx-auto">
-              Our first collection is an invitation to discover pieces that become the foundation of a confident wardrobe. Every step reflects our devotion to quality, comfort, and beauty.
+              This inspired a thoughtful approach to dressing: creating basic, elevated sets designed to make getting ready feel easier, without compromising on comfort or style. Each piece is made to feel effortless, versatile, and quietly put together—supporting you through your day, wherever it may take you.
             </p>
           </AnimatedSection>
           <AnimatedSection delay={0.4}>

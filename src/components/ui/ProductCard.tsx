@@ -14,6 +14,7 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
   const [selectedSize, setSelectedSize] = useState(product.sizes[1] || product.sizes[0]);
   const [showSizes, setShowSizes] = useState(false);
   const [added, setAdded] = useState(false);
+  const [showSizeChartModal, setShowSizeChartModal] = useState(false);
   const { addItem } = useCart();
   const navigate = useNavigate();
 
@@ -94,6 +95,19 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
             <ShoppingBag size={13} />
             {added ? "Added ✓" : "Add to Cart"}
           </motion.button>
+          
+          {product.sizeChart && (
+             <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setShowSizeChartModal(true);
+                }}
+                className="w-full text-center text-[0.6rem] uppercase tracking-[0.1em] text-primary underline hover:opacity-75 pt-1"
+             >
+                View Size Chart
+             </button>
+          )}
+
         </motion.div>
       </div>
 
@@ -106,8 +120,54 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
             {product.color} / {product.material}
           </p>
         </div>
-        <span className="font-medium text-sm text-primary">${product.price}</span>
+        <span className="font-medium text-sm text-primary">{product.price} EGP</span>
       </div>
+
+      {showSizeChartModal && product.sizeChart && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4" onClick={(e) => { e.stopPropagation(); setShowSizeChartModal(false); }}>
+           <div className="bg-surface p-6 md:p-8 max-w-2xl w-full max-h-[90vh] overflow-auto relative rounded-sm" onClick={e => e.stopPropagation()}>
+              <button 
+                 className="absolute top-4 right-4 text-primary font-bold hover:opacity-70"
+                 onClick={() => setShowSizeChartModal(false)}
+              >
+                 ✕
+              </button>
+              <h2 className="font-serif text-2xl mb-6 text-primary">{product.name} Size Chart</h2>
+              <div className="overflow-x-auto">
+                 <table className="w-full text-left text-sm border-collapse">
+                    <thead>
+                       <tr className="border-b border-primary/20">
+                          <th className="py-2 px-3 font-semibold uppercase tracking-wider text-[0.65rem]">Feature</th>
+                          <th className="py-2 px-3 font-semibold uppercase tracking-wider text-[0.65rem]">XS</th>
+                          <th className="py-2 px-3 font-semibold uppercase tracking-wider text-[0.65rem]">S</th>
+                          <th className="py-2 px-3 font-semibold uppercase tracking-wider text-[0.65rem]">M</th>
+                          <th className="py-2 px-3 font-semibold uppercase tracking-wider text-[0.65rem]">L</th>
+                          <th className="py-2 px-3 font-semibold uppercase tracking-wider text-[0.65rem]">XL</th>
+                          {product.sizeChart.some(r => r.notes) && (
+                             <th className="py-2 px-3 font-semibold uppercase tracking-wider text-[0.65rem]">Notes</th>
+                          )}
+                       </tr>
+                    </thead>
+                    <tbody>
+                       {product.sizeChart.map((row, idx) => (
+                          <tr key={idx} className="border-b border-primary/10 hover:bg-surface-container/50">
+                             <td className="py-2 px-3">{row.feature}</td>
+                             <td className="py-2 px-3">{row.xs}</td>
+                             <td className="py-2 px-3">{row.s}</td>
+                             <td className="py-2 px-3">{row.m}</td>
+                             <td className="py-2 px-3">{row.l}</td>
+                             <td className="py-2 px-3">{row.xl}</td>
+                             {product.sizeChart!.some(r => r.notes) && (
+                                <td className="py-2 px-3 text-[0.65rem] text-on-surface-variant">{row.notes || ""}</td>
+                             )}
+                          </tr>
+                       ))}
+                    </tbody>
+                 </table>
+              </div>
+           </div>
+        </div>
+      )}
     </motion.div>
   );
 }

@@ -6,41 +6,100 @@ import { useNavigate } from "react-router-dom";
 export default function HeroSection() {
   const navigate = useNavigate();
 
+  // Animation variants
+  const leftPanel = {
+    animate: {
+      x: ["-100%", "0%", "0%", "-35%"],
+    },
+  };
+
+  const rightPanel = {
+    animate: {
+      x: ["100%", "0%", "0%", "35%"],
+    },
+  };
+
+  const zipperPull = {
+    animate: {
+      y: ["100vh", "0vh", "0vh", "35vh"],
+    },
+  };
+
+  const transitionConfig = {
+    duration: 3.5,
+    times: [0, 0.4, 0.6, 1], // 0 -> 40% (close), 40% -> 60% (pause), 60% -> 100% (open half)
+    ease: "easeInOut",
+  };
+
   return (
     <section className="relative h-[90vh] min-h-[700px] overflow-hidden bg-surface-container-low">
+      {/* Background Image (coming soong) */}
       <motion.div
         initial={{ scale: 1.1 }}
         animate={{ scale: 1 }}
-        transition={{ duration: 2, ease: "easeOut" }}
+        transition={{ duration: 4, ease: "easeOut" }}
         className="absolute inset-0"
       >
         <img
           src={IMAGES.hero}
-          alt="The Modern Uniform"
+          alt="Coming Soon"
           className="w-full h-full object-cover"
           referrerPolicy="no-referrer"
         />
         <div className="absolute inset-0 bg-black/10" />
       </motion.div>
 
-      <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-16 max-w-[1920px] mx-auto">
+      {/* Zipper Left Panel */}
+      <motion.div
+        variants={leftPanel}
+        animate="animate"
+        transition={transitionConfig}
+        className="absolute left-0 top-0 w-1/2 h-full bg-[#0a0a0a] z-20 border-r border-[#222]"
+        style={{ originX: 0 }}
+      />
+
+      {/* Zipper Right Panel */}
+      <motion.div
+        variants={rightPanel}
+        animate="animate"
+        transition={transitionConfig}
+        className="absolute right-0 top-0 w-1/2 h-full bg-[#0a0a0a] z-20 border-l border-[#222]"
+        style={{ originX: 1 }}
+      />
+
+      {/* Zipper Pull (Head) */}
+      <motion.div
+        variants={zipperPull}
+        animate="animate"
+        transition={transitionConfig}
+        className="absolute left-1/2 top-0 -translate-x-1/2 z-30 flex flex-col items-center"
+      >
+        <div className="w-5 h-8 bg-zinc-400 rounded-sm shadow-[0_4px_10px_rgba(0,0,0,0.5)] border border-zinc-300 relative flex items-center justify-center">
+          {/* Internal detail of zipper */}
+          <div className="w-1 h-4 bg-zinc-600 rounded-full" />
+        </div>
+        {/* Zipper Tab */}
+        <motion.div 
+           initial={{ rotateX: 0 }}
+           animate={{ rotateX: [0, -30, 0, 30] }}
+           transition={{ duration: 3.5, times: [0, 0.4, 0.6, 1] }}
+           className="w-3 h-10 bg-zinc-500 rounded-b-md shadow-lg -mt-1 origin-top border border-zinc-400"
+        />
+      </motion.div>
+
+      {/* Content (Button) fading in after animation */}
+      <div className="absolute inset-0 flex flex-col justify-end items-center p-8 md:p-16 z-10 pointer-events-none">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5, duration: 1 }}
-          className="space-y-4"
+          transition={{ delay: 3.5, duration: 0.8 }}
+          className="pointer-events-auto"
         >
-          <span className="font-script text-4xl md:text-5xl text-white block">
-            New Season
-          </span>
-          <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl text-white uppercase leading-[0.9] tracking-tight max-w-2xl">
-            THE MODERN UNIFORM
-          </h1>
           <Button
-            className="mt-8 !bg-primary !text-white"
+            className="!bg-white !text-black hover:!bg-gray-200 uppercase tracking-widest text-sm py-4 px-10 shadow-xl"
             onClick={() => navigate("/products")}
           >
-            SHOP THE SET
+            Shop Collection
           </Button>
         </motion.div>
       </div>
