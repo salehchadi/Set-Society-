@@ -74,7 +74,7 @@ export default function HeroSection() {
         </motion.div>
 
         {/* Content (Button) fading in after zipper is mostly open */}
-        <div className="absolute inset-0 flex flex-col justify-end items-center p-8 md:p-16 z-50 pointer-events-none">
+        <div className="absolute inset-0 flex flex-col justify-end items-center p-8 md:p-16 z-40 pointer-events-none">
           <motion.div style={{ opacity: buttonOpacity }} className="pointer-events-auto">
             <Button
               className="!bg-white !text-black hover:!bg-gray-200 uppercase tracking-widest text-sm py-4 px-10 shadow-xl"
@@ -84,6 +84,21 @@ export default function HeroSection() {
             </Button>
           </motion.div>
         </div>
+
+        {/* Scroll down to unzip Indicator */}
+        <motion.div
+          style={{ opacity: useTransform(scrollYProgress, [0, 0.15], [1, 0]) }}
+          className="absolute inset-x-0 bottom-16 flex flex-col items-center justify-center pointer-events-none z-50 text-white/80"
+        >
+          <motion.div
+            animate={{ y: [0, 10, 0], opacity: [0.4, 0.8, 0.4] }}
+            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+            className="flex flex-col items-center gap-4"
+          >
+            <span className="uppercase tracking-[0.3em] text-xs font-light">Scroll down to unzip</span>
+            <div className="w-[1px] h-16 bg-gradient-to-b from-white/50 to-transparent" />
+          </motion.div>
+        </motion.div>
       </div>
     </section>
   );

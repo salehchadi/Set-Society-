@@ -85,7 +85,7 @@ export const PRODUCTS: Product[] = [
   {
     id: "3",
     name: "Modern Black Dress Set",
-    price: 2300,
+    price: 2400,
     category: "Sets",
     color: "Black",
     sizes: ["XS", "S", "M", "L", "XL"],
@@ -124,7 +124,7 @@ export const PRODUCTS: Product[] = [
   {
     id: "6",
     name: "Modern White Dress Set",
-    price: 2300,
+    price: 2400,
     category: "Sets",
     color: "White",
     sizes: ["XS", "S", "M", "L", "XL"],
