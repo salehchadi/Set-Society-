@@ -1,5 +1,5 @@
 import logoImg from './images/logo.png';
-import comingSoonImg from './images/image.png';
+import heroImg from './images/image.png';
 import blackJacketImg from './images/BLACK_jacket.jpg';
 import blackPantsImg from './images/black pants.jpg';
 import blackDressImg from './images/black_dress.png';
@@ -9,7 +9,7 @@ import whiteDressImg from './images/white_dress.png';
 
 export const IMAGES = {
   logo: logoImg,
-  hero: comingSoonImg,
+  hero: heroImg,
   blackJacket: blackJacketImg,
   blackPants: blackPantsImg,
   blackDress: blackDressImg,
