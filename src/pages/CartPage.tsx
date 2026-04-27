@@ -1,6 +1,7 @@
 import { motion, AnimatePresence } from "motion/react";
 import { Minus, Plus, X, ArrowRight, ShoppingBag } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 import { useCart } from "../context/CartContext";
 import AnimatedSection from "../components/ui/AnimatedSection";
 import Button from "../components/ui/Button";
@@ -8,8 +9,39 @@ import Button from "../components/ui/Button";
 export default function CartPage() {
   const { items, updateQuantity, removeItem, clearCart, subtotal, itemCount } = useCart();
 
+  const [isCheckoutModalOpen, setIsCheckoutModalOpen] = useState(false);
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [address, setAddress] = useState("");
+
   const shipping = subtotal > 500 ? 0 : 25;
   const total = subtotal + shipping;
+
+  const handleCheckout = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!name || !phone || !address) return;
+    
+    let orderText = `*New Order - Set Society*\n\n`;
+    orderText += `*Customer Details:*\n`;
+    orderText += `Name: ${name}\n`;
+    orderText += `Phone: ${phone}\n`;
+    orderText += `Address: ${address}\n\n`;
+    
+    orderText += `*Order Items:*\n`;
+    items.forEach(item => {
+      orderText += `- ${item.quantity}x ${item.product.name} (${item.product.color})\n  Size: ${item.selectedSize}\n  Price: ${item.product.price * item.quantity} EGP\n`;
+    });
+    
+    orderText += `\n*Summary:*\n`;
+    orderText += `Subtotal: ${subtotal} EGP\n`;
+    orderText += `Shipping: ${shipping === 0 ? "Complimentary" : shipping + " EGP"}\n`;
+    orderText += `*Total: ${total} EGP*\n`;
+    
+    const encodedMessage = encodeURIComponent(orderText);
+    window.open(`https://wa.me/201129297117?text=${encodedMessage}`, '_blank');
+    
+    setIsCheckoutModalOpen(false);
+  };
 
   return (
     <div className="pt-28 pb-32 px-6 md:px-12 max-w-[1920px] mx-auto">
@@ -190,7 +222,7 @@ export default function CartPage() {
               </div>
 
               <div className="pt-8 space-y-4">
-                <Button className="w-full" size="lg">
+                <Button className="w-full" size="lg" onClick={() => setIsCheckoutModalOpen(true)}>
                   Proceed to Checkout <ArrowRight size={14} />
                 </Button>
                 <Link to="/products" className="block">
@@ -216,6 +248,71 @@ export default function CartPage() {
           </div>
         </div>
       )}
+
+      {/* Checkout Modal Overlay */}
+      <AnimatePresence>
+        {isCheckoutModalOpen && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              className="bg-surface p-8 max-w-md w-full relative shadow-2xl"
+            >
+              <button 
+                onClick={() => setIsCheckoutModalOpen(false)}
+                className="absolute top-4 right-4 text-primary hover:opacity-70 transition-opacity"
+              >
+                <X size={20} />
+              </button>
+              
+              <h2 className="font-serif text-2xl mb-2 text-primary">Delivery Details</h2>
+              <p className="text-sm text-on-surface-variant mb-6">
+                Please provide your details to complete the order via WhatsApp.
+              </p>
+              
+              <form onSubmit={handleCheckout} className="space-y-4">
+                <div>
+                  <label className="block text-[0.65rem] uppercase tracking-widest text-primary/70 mb-2">Full Name</label>
+                  <input 
+                    required 
+                    type="text" 
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    className="w-full bg-surface-container border border-primary/20 p-3 text-sm focus:outline-none focus:border-primary transition-colors text-primary"
+                    placeholder="Enter your full name"
+                  />
+                </div>
+                <div>
+                  <label className="block text-[0.65rem] uppercase tracking-widest text-primary/70 mb-2">Phone Number</label>
+                  <input 
+                    required 
+                    type="tel" 
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                    className="w-full bg-surface-container border border-primary/20 p-3 text-sm focus:outline-none focus:border-primary transition-colors text-primary"
+                    placeholder="01xxxxxxxxx"
+                  />
+                </div>
+                <div>
+                  <label className="block text-[0.65rem] uppercase tracking-widest text-primary/70 mb-2">Delivery Address</label>
+                  <textarea 
+                    required 
+                    rows={3}
+                    value={address}
+                    onChange={(e) => setAddress(e.target.value)}
+                    className="w-full bg-surface-container border border-primary/20 p-3 text-sm focus:outline-none focus:border-primary transition-colors text-primary resize-none"
+                    placeholder="City, Area, Street, Building, Floor/Apt"
+                  />
+                </div>
+                <Button type="submit" className="w-full mt-4 !mt-8">
+                  Proceed to WhatsApp <ArrowRight size={14} className="ml-2" />
+                </Button>
+              </form>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

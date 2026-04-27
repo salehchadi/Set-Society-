@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import type { Product } from "../../assets/constants";
 import { useCart } from "../../context/CartContext";
+import { useInventory } from "../../context/InventoryContext";
 
 interface ProductCardProps {
   product: Product;
@@ -17,9 +18,21 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
   const [showSizeChartModal, setShowSizeChartModal] = useState(false);
   const { addItem } = useCart();
   const navigate = useNavigate();
+  const { stock } = useInventory();
+
+  const hasInventoryData = Object.keys(stock).length > 0;
+  
+  const getStockForSize = (size: string) => {
+    if (!hasInventoryData) return null;
+    return stock[`${product.id}-${size}`];
+  };
+
+  const isProductSoldOut = hasInventoryData && product.sizes.every(size => getStockForSize(size) === 0);
+  const isSelectedSizeOutOfStock = getStockForSize(selectedSize) === 0;
 
   const handleAddToCart = (e: React.MouseEvent) => {
     e.stopPropagation();
+    if (isProductSoldOut || isSelectedSizeOutOfStock) return;
     addItem(product, selectedSize);
     setAdded(true);
     setTimeout(() => setAdded(false), 1500);
@@ -47,10 +60,19 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
         />
 
         {/* New badge */}
-        {product.isNew && (
-          <div className="absolute top-4 left-4">
+        {!isProductSoldOut && product.isNew && (
+          <div className="absolute top-4 left-4 z-20">
             <span className="bg-primary text-white text-[0.55rem] uppercase tracking-[0.2em] px-3 py-1.5 font-semibold">
               New
+            </span>
+          </div>
+        )}
+
+        {/* Sold Out badge overlay */}
+        {isProductSoldOut && (
+          <div className="absolute inset-0 bg-surface/40 backdrop-blur-[2px] z-10 flex items-center justify-center">
+            <span className="bg-primary text-white px-6 py-2 tracking-[0.2em] uppercase font-semibold text-sm shadow-xl">
+              Sold Out
             </span>
           </div>
         )}
@@ -62,38 +84,48 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
           className="absolute bottom-0 left-0 right-0 bg-surface/95 backdrop-blur-sm p-4 space-y-3"
         >
           {/* Size selector */}
-          <div className="flex items-center gap-2 justify-center">
-            {product.sizes.map((size) => (
-              <button
-                key={size}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setSelectedSize(size);
-                }}
-                className={`w-8 h-8 text-[0.6rem] uppercase tracking-wider border transition-colors ${
-                  selectedSize === size
-                    ? "bg-primary text-white border-primary"
-                    : "border-primary/20 text-primary hover:border-primary"
-                }`}
-              >
-                {size}
-              </button>
-            ))}
+          <div className="flex items-center gap-2 justify-center relative z-20">
+            {product.sizes.map((size) => {
+              const sizeStock = getStockForSize(size);
+              const isOutOfStock = sizeStock === 0;
+              return (
+                <button
+                  key={size}
+                  disabled={isOutOfStock}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setSelectedSize(size);
+                  }}
+                  className={`w-8 h-8 text-[0.6rem] uppercase tracking-wider border transition-colors ${
+                    isOutOfStock
+                      ? "opacity-30 cursor-not-allowed line-through border-primary/20 text-primary/50"
+                      : selectedSize === size
+                      ? "bg-primary text-white border-primary"
+                      : "border-primary/20 text-primary hover:border-primary"
+                  }`}
+                >
+                  {size}
+                </button>
+              );
+            })}
           </div>
 
           {/* Add to cart button */}
           <motion.button
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
+            whileHover={!isProductSoldOut && !isSelectedSizeOutOfStock ? { scale: 1.02 } : {}}
+            whileTap={!isProductSoldOut && !isSelectedSizeOutOfStock ? { scale: 0.98 } : {}}
             onClick={handleAddToCart}
-            className={`w-full py-2.5 text-[0.6rem] uppercase tracking-[0.2em] font-medium flex items-center justify-center gap-2 transition-colors ${
-              added
+            disabled={isProductSoldOut || isSelectedSizeOutOfStock}
+            className={`w-full py-2.5 text-[0.6rem] uppercase tracking-[0.2em] font-medium flex items-center justify-center gap-2 transition-colors relative z-20 ${
+              isProductSoldOut || isSelectedSizeOutOfStock
+                ? "bg-surface-container text-primary/50 cursor-not-allowed"
+                : added
                 ? "bg-[#4A7C59] text-white"
                 : "bg-primary text-white hover:bg-primary/90"
             }`}
           >
             <ShoppingBag size={13} />
-            {added ? "Added ✓" : "Add to Cart"}
+            {isProductSoldOut ? "Sold Out" : isSelectedSizeOutOfStock ? "Size Out of Stock" : added ? "Added ✓" : "Add to Cart"}
           </motion.button>
           
           {product.sizeChart && (
