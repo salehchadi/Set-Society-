@@ -45,10 +45,10 @@ export default function ReturnRefundPage() {
             Returns & Refunds
           </h1>
           <p className="text-sm md:text-base leading-[1.8] text-on-surface-variant max-w-2xl">
-            We believe in the quality of every garment that leaves our atelier. Your satisfaction is our highest commitment.
+            We believe in the quality of every garment that leaves our atelier. Your satisfaction is our highest commitment
           </p>
           <div className="pt-6">
-            <span className="font-script text-3xl text-primary">Your satisfaction, guaranteed.</span>
+            <span className="font-script text-3xl text-primary">Your satisfaction, guaranteed</span>
           </div>
         </AnimatedSection>
       </section>
@@ -172,7 +172,7 @@ export default function ReturnRefundPage() {
             Still Have Questions?
           </motion.h3>
           <p className="text-sm opacity-70">
-            Our Atelier Care team is here to help with any concerns.
+            Our Atelier Care team is here to help with any concerns
           </p>
           <motion.a
             href="mailto:care@setsociety.com"

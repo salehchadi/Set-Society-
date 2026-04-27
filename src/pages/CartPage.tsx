@@ -20,7 +20,7 @@ export default function CartPage() {
         </p>
         <div className="flex items-end justify-between">
           <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl uppercase tracking-tighter text-primary">
-            Shopping Bag
+            Shopping Cart
           </h1>
           {items.length > 0 && (
             <span className="text-sm text-on-surface-variant">
@@ -37,9 +37,9 @@ export default function CartPage() {
             <ShoppingBag size={32} strokeWidth={1} className="text-primary/30" />
           </div>
           <div className="space-y-3">
-            <p className="font-serif text-2xl text-primary">Your bag is empty</p>
+            <p className="font-serif text-2xl text-primary">Your cart is empty</p>
             <p className="text-sm text-on-surface-variant max-w-sm mx-auto">
-              Explore our curated collection and find pieces that speak to your personal style.
+              Explore our curated collection and find pieces that speak to your personal style
             </p>
           </div>
           <Link to="/products">

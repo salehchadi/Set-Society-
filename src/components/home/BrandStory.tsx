@@ -14,13 +14,13 @@ export default function BrandStory() {
             OUR STORY
           </p>
           <h2 className="font-serif text-4xl md:text-5xl leading-tight text-primary">
-            Less Effort.<br />Better Outfits.
+            Less Effort<br />Better Outfits
           </h2>
           <p className="text-sm md:text-base leading-[1.8] text-on-surface-variant max-w-lg mx-auto">
-            Set Society was created with everyday simplicity in mind. We believe in crafting basic, elevated sets designed to make getting ready feel easier, without compromising on comfort or style.
+            Set Society was created with everyday simplicity in mind. We believe in crafting basic, elevated sets designed to make getting ready feel easier, without compromising on comfort or style
           </p>
           <div className="pt-6">
-            <span className="font-script text-4xl text-primary">Made with care.</span>
+            <span className="font-script text-4xl text-primary">Made with care</span>
           </div>
         </motion.div>
       </div>

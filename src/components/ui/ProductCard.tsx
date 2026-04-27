@@ -132,8 +132,7 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
               >
                  ✕
               </button>
-              <h2 className="font-serif text-2xl mb-6 text-primary">{product.name} Size Chart</h2>
-              <div className="overflow-x-auto">
+              <div className="mt-8 overflow-x-auto">
                  <table className="w-full text-left text-sm border-collapse">
                     <thead>
                        <tr className="border-b border-primary/20">

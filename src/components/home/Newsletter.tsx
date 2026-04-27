@@ -14,7 +14,7 @@ export default function Newsletter() {
           Join the Atelier<br />Journal
         </motion.h3>
         <p className="text-sm opacity-70 tracking-wide max-w-sm mx-auto">
-          Be the first to access limited collections and editorial insights.
+          Be the first to access limited collections and editorial insights
         </p>
         <div className="relative max-w-md mx-auto group">
           <input

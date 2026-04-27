@@ -74,7 +74,7 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
             {/* Footer */}
             <div className="mt-auto p-8 space-y-4">
               <div className="flex gap-6">
-                {["Instagram", "Pinterest"].map((social) => (
+                {["Facebook", "Instagram", "TikTok"].map((social) => (
                   <a
                     key={social}
                     href="#"

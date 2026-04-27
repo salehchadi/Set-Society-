@@ -78,17 +78,17 @@ export default function AboutPage() {
           </AnimatedSection>
           <AnimatedSection delay={0.2}>
             <p className="text-sm md:text-base leading-[1.9] text-on-surface-variant max-w-2xl mx-auto">
-              Set Society was created with everyday simplicity in mind. Our founder, a new mother and former athlete, experienced firsthand how challenging it can be to get dressed while balancing the demands of daily life—especially when time and energy are limited.
+              Set Society was created with everyday simplicity in mind. Our founder, a new mother and former athlete, experienced firsthand how challenging it can be to get dressed while balancing the demands of daily life—especially when time and energy are limited
             </p>
           </AnimatedSection>
           <AnimatedSection delay={0.3}>
             <p className="text-sm md:text-base leading-[1.9] text-on-surface-variant max-w-2xl mx-auto">
-              This inspired a thoughtful approach to dressing: creating basic, elevated sets designed to make getting ready feel easier, without compromising on comfort or style. Each piece is made to feel effortless, versatile, and quietly put together—supporting you through your day, wherever it may take you.
+              This inspired a thoughtful approach to dressing: creating basic, elevated sets designed to make getting ready feel easier, without compromising on comfort or style. Each piece is made to feel effortless, versatile, and quietly put together—supporting you through your day, wherever it may take you
             </p>
           </AnimatedSection>
           <AnimatedSection delay={0.4}>
             <div className="pt-4">
-              <span className="font-script text-4xl text-primary">A new beginning.</span>
+              <span className="font-script text-4xl text-primary">A new beginning</span>
             </div>
           </AnimatedSection>
         </div>
@@ -150,16 +150,16 @@ export default function AboutPage() {
               </AnimatedSection>
               <AnimatedSection delay={0.2}>
                 <p className="text-sm md:text-base leading-[1.9] text-on-surface-variant">
-                  We are thrilled to open our doors and share our vision with the local community. Every piece in our collection is curated and prepared with the utmost attention to detail, right here in our workspace.
+                  We are thrilled to open our doors and share our vision with the local community. Every piece in our collection is curated and prepared with the utmost attention to detail, right here in our workspace
                 </p>
               </AnimatedSection>
               <AnimatedSection delay={0.3}>
                 <p className="text-sm md:text-base leading-[1.9] text-on-surface-variant">
-                  As an emerging local brand, your support means everything to us. We look forward to growing alongside you and continuing to bring thoughtfully designed fashion to your everyday life.
+                  As an emerging local brand, your support means everything to us. We look forward to growing alongside you and continuing to bring thoughtfully designed fashion to your everyday life
                 </p>
               </AnimatedSection>
               <AnimatedSection delay={0.4}>
-                <span className="font-script text-3xl text-primary">Thank you for being here.</span>
+                <span className="font-script text-3xl text-primary">Thank you for being here</span>
               </AnimatedSection>
             </div>
           </div>
@@ -182,7 +182,7 @@ export default function AboutPage() {
               Experience<br />Set Society
             </h3>
             <p className="text-sm opacity-70 max-w-sm mx-auto">
-              Explore our curated pieces, each crafted with intention for the modern woman.
+              Explore our curated pieces, each crafted with intention for the modern woman
             </p>
             <Link to="/products">
               <Button className="mt-4 !bg-white !text-primary hover:!bg-white/90">

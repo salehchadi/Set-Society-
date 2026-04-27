@@ -41,7 +41,7 @@ export default function HeroSection() {
           <img
             src={IMAGES.hero}
             alt="Coming Soon"
-            className="w-full h-full object-cover object-top"
+            className="w-full h-full object-fill object-top"
             referrerPolicy="no-referrer"
           />
         </div>

@@ -34,7 +34,7 @@ export default function Footer() {
 
         <div className="space-y-12 md:text-right w-full md:w-auto">
           <div className="flex gap-8 md:justify-end">
-            {["Instagram", "Pinterest"].map((social) => (
+            {["Facebook", "Instagram", "TikTok"].map((social) => (
               <a
                 key={social}
                 href="#"
@@ -45,7 +45,7 @@ export default function Footer() {
             ))}
           </div>
           <p className="text-[0.6rem] uppercase tracking-[0.25em] text-primary/40">
-            © 2026 SET SOCIETY. ALL RIGHTS RESERVED.
+            © 2026 SET SOCIETY ALL RIGHTS RESERVED
           </p>
         </div>
       </div>
