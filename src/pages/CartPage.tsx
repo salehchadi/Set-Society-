@@ -1,13 +1,15 @@
 import { motion, AnimatePresence } from "motion/react";
-import { Minus, Plus, X, ArrowRight, ShoppingBag } from "lucide-react";
+import { Minus, Plus, X, ArrowRight, ShoppingBag, AlertCircle } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useCart } from "../context/CartContext";
+import { useInventory } from "../context/InventoryContext";
 import AnimatedSection from "../components/ui/AnimatedSection";
 import Button from "../components/ui/Button";
 
 export default function CartPage() {
   const { items, updateQuantity, removeItem, clearCart, subtotal, itemCount } = useCart();
+  const { stock } = useInventory();
 
   const [isCheckoutModalOpen, setIsCheckoutModalOpen] = useState(false);
   const [name, setName] = useState("");
@@ -16,6 +18,18 @@ export default function CartPage() {
 
   const shipping = subtotal > 500 ? 0 : 25;
   const total = subtotal + shipping;
+
+  const hasInventoryData = Object.keys(stock).length > 0;
+
+  // Check if any item in the cart exceeds available stock
+  const invalidItems = items.filter(item => {
+    if (!hasInventoryData) return false;
+    const itemStock = stock[`${item.product.id}-${item.selectedSize}`];
+    // If stock is known and is less than requested quantity
+    return itemStock !== undefined && itemStock < item.quantity;
+  });
+
+  const hasInvalidItems = invalidItems.length > 0;
 
   const handleCheckout = (e: React.FormEvent) => {
     e.preventDefault();
@@ -179,6 +193,14 @@ export default function CartPage() {
                             ${(item.product.price * item.quantity).toLocaleString()}
                           </span>
                         </div>
+
+                        {/* Stock Warning per item */}
+                        {hasInventoryData && stock[`${item.product.id}-${item.selectedSize}`] !== undefined && stock[`${item.product.id}-${item.selectedSize}`] < item.quantity && (
+                          <div className="mt-3 flex items-center gap-1.5 text-red-500 text-xs font-medium">
+                            <AlertCircle size={12} />
+                            <span>Only {stock[`${item.product.id}-${item.selectedSize}`]} in stock</span>
+                          </div>
+                        )}
                       </div>
                     </div>
                   </motion.div>
@@ -222,7 +244,18 @@ export default function CartPage() {
               </div>
 
               <div className="pt-8 space-y-4">
-                <Button className="w-full" size="lg" onClick={() => setIsCheckoutModalOpen(true)}>
+                {hasInvalidItems && (
+                  <div className="p-3 bg-red-50 text-red-600 text-xs border border-red-100 flex items-start gap-2">
+                    <AlertCircle size={14} className="shrink-0 mt-0.5" />
+                    <span>Some items in your cart exceed our available stock. Please adjust quantities to proceed.</span>
+                  </div>
+                )}
+                <Button 
+                  className="w-full" 
+                  size="lg" 
+                  onClick={() => setIsCheckoutModalOpen(true)}
+                  disabled={hasInvalidItems}
+                >
                   Proceed to Checkout <ArrowRight size={14} />
                 </Button>
                 <Link to="/products" className="block">
