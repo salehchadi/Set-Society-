@@ -2,7 +2,7 @@ import logoImg from './images/logo.png';
 import heroImg from './images/image.png';
 import blackJacketImg from './images/BLACK_jacket.jpg';
 import blackPantsImg from './images/black pants.jpg';
-import blackDressImg from './images/black_dress.png';
+import blackDressImg from './images/image copy.png';
 import whiteJacketImg from './images/white jacket.jpg';
 import whitePantsImg from './images/white pants.jpg';
 import whiteDressImg from './images/white_dress.png';
