@@ -21,15 +21,14 @@ export default function CartPage() {
 
   const hasInventoryData = Object.keys(stock).length > 0;
 
-  // Check if any item in the cart exceeds available stock
-  const invalidItems = items.filter(item => {
+  // Determine which items are preorders (requested quantity exceeds stock)
+  const preorderItems = items.filter(item => {
     if (!hasInventoryData) return false;
     const itemStock = stock[`${item.product.id}-${item.selectedSize}`];
-    // If stock is known and is less than requested quantity
     return itemStock !== undefined && itemStock < item.quantity;
   });
 
-  const hasInvalidItems = invalidItems.length > 0;
+  const hasPreorderItems = preorderItems.length > 0;
 
   const handleCheckout = (e: React.FormEvent) => {
     e.preventDefault();
@@ -43,7 +42,11 @@ export default function CartPage() {
     
     orderText += `*Order Items:*\n`;
     items.forEach(item => {
-      orderText += `- ${item.quantity}x ${item.product.name} (${item.product.color})\n  Size: ${item.selectedSize}\n  Price: ${item.product.price * item.quantity} EGP\n`;
+      const itemStock = hasInventoryData ? stock[`${item.product.id}-${item.selectedSize}`] : undefined;
+      const isPreorder = itemStock !== undefined && itemStock < item.quantity;
+      const typeLabel = isPreorder ? " [PREORDER]" : "";
+      
+      orderText += `- ${item.quantity}x ${item.product.name} (${item.product.color})${typeLabel}\n  Size: ${item.selectedSize}\n  Price: ${item.product.price * item.quantity} EGP\n`;
     });
     
     orderText += `\n*Summary:*\n`;
@@ -194,11 +197,11 @@ export default function CartPage() {
                           </span>
                         </div>
 
-                        {/* Stock Warning per item */}
+                        {/* Preorder Warning per item */}
                         {hasInventoryData && stock[`${item.product.id}-${item.selectedSize}`] !== undefined && stock[`${item.product.id}-${item.selectedSize}`] < item.quantity && (
-                          <div className="mt-3 flex items-center gap-1.5 text-red-500 text-xs font-medium">
+                          <div className="mt-3 flex items-center gap-1.5 text-[#4A7C59] text-xs font-medium">
                             <AlertCircle size={12} />
-                            <span>Only {stock[`${item.product.id}-${item.selectedSize}`]} in stock</span>
+                            <span>Preorder Item</span>
                           </div>
                         )}
                       </div>
@@ -244,17 +247,16 @@ export default function CartPage() {
               </div>
 
               <div className="pt-8 space-y-4">
-                {hasInvalidItems && (
-                  <div className="p-3 bg-red-50 text-red-600 text-xs border border-red-100 flex items-start gap-2">
+                {hasPreorderItems && (
+                  <div className="p-3 bg-[#4A7C59]/10 text-[#4A7C59] text-xs border border-[#4A7C59]/20 flex items-start gap-2">
                     <AlertCircle size={14} className="shrink-0 mt-0.5" />
-                    <span>Some items in your cart exceed our available stock. Please adjust quantities to proceed.</span>
+                    <span>Your cart contains preorder items. These will be shipped as soon as they become available.</span>
                   </div>
                 )}
                 <Button 
                   className="w-full" 
                   size="lg" 
                   onClick={() => setIsCheckoutModalOpen(true)}
-                  disabled={hasInvalidItems}
                 >
                   Proceed to Checkout <ArrowRight size={14} />
                 </Button>

@@ -2,10 +2,10 @@ import logoImg from './images/logo.png';
 import heroImg from './images/image.png';
 import blackJacketImg from './images/BLACK_jacket.jpg';
 import blackPantsImg from './images/black pants.jpg';
-import blackDressImg from './images/image copy.png';
+import blackDressImg from './images/black_everyday_set.png';
 import whiteJacketImg from './images/white jacket.jpg';
 import whitePantsImg from './images/white pants.jpg';
-import whiteDressImg from './images/white_dress.png';
+import whiteDressImg from './images/white_everyday_set.png';
 
 export const IMAGES = {
   logo: logoImg,
@@ -84,14 +84,14 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: "3",
-    name: "Modern Black Dress Set",
+    name: "Everyday Set",
     price: 2400,
     category: "Sets",
     color: "Black",
     sizes: ["XS", "S", "M", "L", "XL"],
     material: "Premium Blend",
     image: IMAGES.blackDress,
-    description: "The complete modern uniform. An exquisite black dress set for any occasion.",
+    description: "This set is crafted from a thoughtfully engineered dual-sided fabric, combining comfort with durability. One side is made from 100% cotton, offering a soft, breathable feel against the skin—perfect for all-day wear. The other side features a cotton blend with 50% polyester, adding structure, resilience, and shape retention.\n\nThe result is a balanced piece that feels natural and lightweight while maintaining its form and finish over time. Designed for ease, movement, and everyday versatility.\n\nCare instructions: Wash in cold water only to preserve the fabric’s quality, softness, and fit.",
     isNew: true,
     sizeChart: topSizeChart, // Assuming top measurements serve as dress proxy
   },
@@ -123,14 +123,14 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: "6",
-    name: "Modern White Dress Set",
+    name: "Everyday Set",
     price: 2400,
     category: "Sets",
     color: "White",
     sizes: ["XS", "S", "M", "L", "XL"],
     material: "Premium Blend",
     image: IMAGES.whiteDress,
-    description: "A breathtaking white dress set offering effortless grace and a clean silhouette.",
+    description: "This set is crafted from a thoughtfully engineered dual-sided fabric, combining comfort with durability. One side is made from 100% cotton, offering a soft, breathable feel against the skin—perfect for all-day wear. The other side features a cotton blend with 50% polyester, adding structure, resilience, and shape retention.\n\nThe result is a balanced piece that feels natural and lightweight while maintaining its form and finish over time. Designed for ease, movement, and everyday versatility.\n\nCare instructions: Wash in cold water only to preserve the fabric’s quality, softness, and fit.",
     isNew: true,
     sizeChart: topSizeChart, // Assuming top measurements serve as dress proxy
   },
