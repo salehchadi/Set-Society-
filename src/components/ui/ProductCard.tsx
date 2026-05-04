@@ -49,7 +49,7 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
     >
       <div
         className="aspect-[4/5] bg-surface-container-low overflow-hidden relative"
-        onClick={() => navigate("/products")}
+        onClick={() => navigate(`/product/${product.id}`)}
       >
         <img
           src={product.image}

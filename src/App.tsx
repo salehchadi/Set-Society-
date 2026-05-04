@@ -10,6 +10,7 @@ import ProductsPage from "./pages/ProductsPage";
 import CartPage from "./pages/CartPage";
 import ReturnRefundPage from "./pages/ReturnRefundPage";
 import AboutPage from "./pages/AboutPage";
+import ProductDetailsPage from "./pages/ProductDetailsPage";
 
 export default function App() {
   return (
@@ -18,6 +19,7 @@ export default function App() {
         <Route element={<Layout />}>
           <Route path="/" element={<HomePage />} />
           <Route path="/products" element={<ProductsPage />} />
+          <Route path="/product/:id" element={<ProductDetailsPage />} />
           <Route path="/cart" element={<CartPage />} />
           <Route path="/returns" element={<ReturnRefundPage />} />
           <Route path="/about" element={<AboutPage />} />
