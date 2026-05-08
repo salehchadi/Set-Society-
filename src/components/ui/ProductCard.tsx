@@ -27,11 +27,12 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
     return stock[`${product.id}-${size}`];
   };
 
-  const isProductSoldOut = false; // Never completely sold out, only preorder
+  const isProductSoldOut = hasInventoryData && product.sizes.every(size => getStockForSize(size) === 0);
   const isSelectedSizeOutOfStock = getStockForSize(selectedSize) === 0;
 
   const handleAddToCart = (e: React.MouseEvent) => {
     e.stopPropagation();
+    if (isSelectedSizeOutOfStock) return;
     addItem(product, selectedSize);
     setAdded(true);
     setTimeout(() => setAdded(false), 1500);
@@ -67,11 +68,11 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
           </div>
         )}
 
-        {/* Preorder badge overlay (removed sold out backdrop) */}
-        {hasInventoryData && product.sizes.every(size => getStockForSize(size) === 0) && (
-          <div className="absolute top-4 right-4 z-20">
-            <span className="bg-[#4A7C59] text-white px-3 py-1.5 tracking-[0.2em] uppercase font-semibold text-[0.55rem] shadow-xl">
-              Preorder
+        {/* Sold out backdrop overlay */}
+        {isProductSoldOut && (
+          <div className="absolute inset-0 bg-surface/40 z-10 flex items-center justify-center backdrop-blur-[1px]">
+            <span className="bg-surface text-primary px-4 py-2 tracking-[0.3em] uppercase font-semibold text-[0.65rem] shadow-xl">
+              Out of Stock
             </span>
           </div>
         )}
@@ -108,17 +109,20 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
 
           {/* Add to cart / Preorder button */}
           <motion.button
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
+            whileHover={!isSelectedSizeOutOfStock ? { scale: 1.02 } : {}}
+            whileTap={!isSelectedSizeOutOfStock ? { scale: 0.98 } : {}}
             onClick={handleAddToCart}
+            disabled={isSelectedSizeOutOfStock}
             className={`w-full py-2.5 text-[0.6rem] uppercase tracking-[0.2em] font-medium flex items-center justify-center gap-2 transition-colors relative z-20 ${
-              added
+              isSelectedSizeOutOfStock
+                ? "bg-surface-dim text-on-surface-variant cursor-not-allowed"
+                : added
                 ? "bg-[#4A7C59] text-white"
                 : "bg-primary text-white hover:bg-primary/90"
             }`}
           >
             <ShoppingBag size={13} />
-            {added ? "Added ✓" : isSelectedSizeOutOfStock ? "Preorder" : "Add to Cart"}
+            {isSelectedSizeOutOfStock ? "Out of Stock" : added ? "Added ✓" : "Add to Cart"}
           </motion.button>
           
           {product.sizeChart && (

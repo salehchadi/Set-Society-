@@ -44,7 +44,7 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
 
             {/* Brand */}
             <div className="px-8 pb-12">
-              <span className="font-script text-4xl text-primary">Set Society</span>
+              <span className="font-logo text-4xl text-primary">Set Society</span>
             </div>
 
             {/* Links */}

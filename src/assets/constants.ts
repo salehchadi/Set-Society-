@@ -1,11 +1,11 @@
 import logoImg from './images/logo.png';
-import heroImg from './images/image.png';
+import heroImg from './images/main_image.png';
 import blackJacketImg from './images/BLACK_jacket.jpg';
 import blackPantsImg from './images/black pants.jpg';
-import blackDressImg from './images/black_everyday_set.png';
-import whiteJacketImg from './images/white jacket.jpg';
-import whitePantsImg from './images/white pants.jpg';
-import whiteDressImg from './images/white_everyday_set.png';
+import blackDressImg from './images/image copy.png';
+import whiteJacketImg from './images/off white jacket.png';
+import whitePantsImg from './images/off white pants .png';
+import whiteDressImg from './images/offwhite set .png';
 
 export const IMAGES = {
   logo: logoImg,
@@ -65,7 +65,7 @@ export const PRODUCTS: Product[] = [
     sizes: ["XS", "S", "M", "L", "XL"],
     material: "Premium Blend",
     image: IMAGES.blackJacket,
-    description: "Our signature high-quality black jacket, built for everyday elegance.",
+    description: "A fitted silhouette with an effortless feel.\nCrafted with a pure cotton inner layer for a soft, breathable touch against the skin, while the outer layer features a textured ribbed cotton-blend fabric that adds structure and dimension. Designed with a cinched waist and relaxed sleeves to create a balanced, flattering shape that feels both comfortable and elevated.",
     isNew: true,
     sizeChart: topSizeChart,
   },
@@ -78,7 +78,7 @@ export const PRODUCTS: Product[] = [
     sizes: ["XS", "S", "M", "L", "XL"],
     material: "Premium Blend",
     image: IMAGES.blackPants,
-    description: "Elevated black trousers that fit perfectly and flow with you.",
+    description: "Designed for comfort without compromising structure.\nMade with a soft pure cotton inner layer for a breathable, lightweight feel, while the outer side features a ribbed cotton-blend fabric that gives the pants a refined textured finish. The silhouette is relaxed yet flattering, offering ease of movement with a clean elevated look perfect for everyday wear.\n\nCold wash only to preserve the fabric and fit.",
     isNew: true,
     sizeChart: pantSizeChart,
   },
@@ -97,27 +97,27 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: "4",
-    name: "Classic White Jacket",
+    name: "Classic Off White Jacket",
     price: 1300,
     category: "Outerwear",
-    color: "White",
+    color: "Off White",
     sizes: ["XS", "S", "M", "L", "XL"],
     material: "Premium Blend",
     image: IMAGES.whiteJacket,
-    description: "Our signature high-quality white jacket, bringing a refined brightness to your wardrobe.",
+    description: "A fitted silhouette with an effortless feel.\nCrafted with a pure cotton inner layer for a soft, breathable touch against the skin, while the outer layer features a textured ribbed cotton-blend fabric that adds structure and dimension. Designed with a cinched waist and relaxed sleeves to create a balanced, flattering shape that feels both comfortable and elevated.",
     isNew: true,
     sizeChart: topSizeChart,
   },
   {
     id: "5",
-    name: "Classic White Pants",
+    name: "Classic Off White Pants",
     price: 1250,
     category: "Bottoms",
-    color: "White",
+    color: "Off White",
     sizes: ["XS", "S", "M", "L", "XL"],
     material: "Premium Blend",
     image: IMAGES.whitePants,
-    description: "Elegant white trousers designed for ease and sophistication.",
+    description: "Designed for comfort without compromising structure.\nMade with a soft pure cotton inner layer for a breathable, lightweight feel, while the outer side features a ribbed cotton-blend fabric that gives the pants a refined textured finish. The silhouette is relaxed yet flattering, offering ease of movement with a clean elevated look perfect for everyday wear.\n\nCold wash only to preserve the fabric and fit.",
     isNew: true,
     sizeChart: pantSizeChart,
   },
@@ -126,7 +126,7 @@ export const PRODUCTS: Product[] = [
     name: "Everyday Set",
     price: 2400,
     category: "Sets",
-    color: "White",
+    color: "Off White",
     sizes: ["XS", "S", "M", "L", "XL"],
     material: "Premium Blend",
     image: IMAGES.whiteDress,
@@ -137,7 +137,7 @@ export const PRODUCTS: Product[] = [
 ];
 
 export const CATEGORIES = ["All", "Sets", "Outerwear", "Bottoms"];
-export const COLORS = ["All", "Black", "White"];
+export const COLORS = ["All", "Black", "Off White"];
 export const SIZES = ["XS", "S", "M", "L", "XL"];
 export const SORT_OPTIONS = [
   { value: "newest", label: "Newest" },

@@ -7,7 +7,7 @@ export default function Footer() {
       <div className="max-w-[1920px] mx-auto flex flex-col md:flex-row justify-between items-start gap-16">
         <div className="space-y-12">
           <Link to="/">
-            <h2 className="font-script text-5xl text-primary">Set Society</h2>
+            <h2 className="font-logo text-5xl text-primary">Set Society</h2>
           </Link>
           <nav className="flex flex-col space-y-4">
             {FOOTER_LINKS.map((link) =>

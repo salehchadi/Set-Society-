@@ -21,43 +21,53 @@ export default function CartPage() {
 
   const hasInventoryData = Object.keys(stock).length > 0;
 
-  // Determine which items are preorders (requested quantity exceeds stock)
-  const preorderItems = items.filter(item => {
-    if (!hasInventoryData) return false;
-    const itemStock = stock[`${item.product.id}-${item.selectedSize}`];
-    return itemStock !== undefined && itemStock < item.quantity;
-  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const hasPreorderItems = preorderItems.length > 0;
-
-  const handleCheckout = (e: React.FormEvent) => {
+  const handleCheckout = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!name || !phone || !address) return;
     
-    let orderText = `*New Order - Set Society*\n\n`;
-    orderText += `*Customer Details:*\n`;
+    setIsSubmitting(true);
+
+    let orderText = `New Order - Set Society\n\n`;
+    orderText += `Customer Details:\n`;
     orderText += `Name: ${name}\n`;
     orderText += `Phone: ${phone}\n`;
     orderText += `Address: ${address}\n\n`;
     
-    orderText += `*Order Items:*\n`;
+    orderText += `Order Items:\n`;
     items.forEach(item => {
-      const itemStock = hasInventoryData ? stock[`${item.product.id}-${item.selectedSize}`] : undefined;
-      const isPreorder = itemStock !== undefined && itemStock < item.quantity;
-      const typeLabel = isPreorder ? " [PREORDER]" : "";
-      
-      orderText += `- ${item.quantity}x ${item.product.name} (${item.product.color})${typeLabel}\n  Size: ${item.selectedSize}\n  Price: ${item.product.price * item.quantity} EGP\n`;
+      orderText += `- ${item.quantity}x ${item.product.name} (${item.product.color})\n  Size: ${item.selectedSize}\n  Price: ${item.product.price * item.quantity} EGP\n`;
     });
     
-    orderText += `\n*Summary:*\n`;
+    orderText += `\nSummary:\n`;
     orderText += `Subtotal: ${subtotal} EGP\n`;
     orderText += `Shipping: ${shipping === 0 ? "Complimentary" : shipping + " EGP"}\n`;
-    orderText += `*Total: ${total} EGP*\n`;
+    orderText += `Total: ${total} EGP\n`;
     
-    const encodedMessage = encodeURIComponent(orderText);
-    window.open(`https://wa.me/201129297117?text=${encodedMessage}`, '_blank');
-    
-    setIsCheckoutModalOpen(false);
+    try {
+      await fetch("https://formsubmit.co/ajax/shokryfarah833@gmail.com", {
+        method: "POST",
+        headers: { 
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+        },
+        body: JSON.stringify({
+            name,
+            phone,
+            address,
+            message: orderText,
+            _subject: "New Order - Set Society"
+        })
+      });
+      clearCart();
+      setIsCheckoutModalOpen(false);
+      alert("Order submitted successfully! We will contact you soon.");
+    } catch (error) {
+      alert("Failed to submit order. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -196,14 +206,6 @@ export default function CartPage() {
                             ${(item.product.price * item.quantity).toLocaleString()}
                           </span>
                         </div>
-
-                        {/* Preorder Warning per item */}
-                        {hasInventoryData && stock[`${item.product.id}-${item.selectedSize}`] !== undefined && stock[`${item.product.id}-${item.selectedSize}`] < item.quantity && (
-                          <div className="mt-3 flex items-center gap-1.5 text-[#4A7C59] text-xs font-medium">
-                            <AlertCircle size={12} />
-                            <span>Preorder Item</span>
-                          </div>
-                        )}
                       </div>
                     </div>
                   </motion.div>
@@ -247,12 +249,6 @@ export default function CartPage() {
               </div>
 
               <div className="pt-8 space-y-4">
-                {hasPreorderItems && (
-                  <div className="p-3 bg-[#4A7C59]/10 text-[#4A7C59] text-xs border border-[#4A7C59]/20 flex items-start gap-2">
-                    <AlertCircle size={14} className="shrink-0 mt-0.5" />
-                    <span>Your cart contains preorder items. These will be shipped as soon as they become available.</span>
-                  </div>
-                )}
                 <Button 
                   className="w-full" 
                   size="lg" 
@@ -303,7 +299,7 @@ export default function CartPage() {
               
               <h2 className="font-serif text-2xl mb-2 text-primary">Delivery Details</h2>
               <p className="text-sm text-on-surface-variant mb-6">
-                Please provide your details to complete the order via WhatsApp.
+                Please provide your details to complete your order.
               </p>
               
               <form onSubmit={handleCheckout} className="space-y-4">
@@ -340,8 +336,8 @@ export default function CartPage() {
                     placeholder="City, Area, Street, Building, Floor/Apt"
                   />
                 </div>
-                <Button type="submit" className="w-full mt-4 !mt-8">
-                  Proceed to WhatsApp <ArrowRight size={14} className="ml-2" />
+                <Button type="submit" className="w-full mt-4 !mt-8" disabled={isSubmitting}>
+                  {isSubmitting ? "Submitting..." : "Complete Order"} <ArrowRight size={14} className="ml-2" />
                 </Button>
               </form>
             </motion.div>

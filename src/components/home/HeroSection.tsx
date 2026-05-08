@@ -40,8 +40,8 @@ export default function HeroSection() {
         <div className="absolute inset-0">
           <img
             src={IMAGES.hero}
-            alt="Coming Soon"
-            className="w-full h-full object-cover object-top"
+            alt="Main Image"
+            className="w-full h-full object-contain object-top"
             referrerPolicy="no-referrer"
           />
         </div>
