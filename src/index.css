@@ -3,7 +3,8 @@
 
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-serif: "Pinyon Script", cursive;
+  --font-serif: "Noto Serif", ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-script: "Pinyon Script", cursive;
   --font-logo: "Alegreya Sans SC", sans-serif;
 
   --color-surface: #FAF9F7;

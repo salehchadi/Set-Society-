@@ -4,8 +4,8 @@ import blackJacketImg from './images/BLACK_jacket.jpg';
 import blackPantsImg from './images/black pants.jpg';
 import blackDressImg from './images/image copy.png';
 import whiteJacketImg from './images/off white jacket.png';
-import whitePantsImg from './images/off white pants .png';
-import whiteDressImg from './images/offwhite set .png';
+import whitePantsImg from './images/off white pants  copy.png';
+import whiteDressImg from './images/offwhite set  copy.png';
 
 export const IMAGES = {
   logo: logoImg,
