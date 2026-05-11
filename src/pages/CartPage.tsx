@@ -15,8 +15,9 @@ export default function CartPage() {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
+  const [city, setCity] = useState("Cairo");
 
-  const shipping = subtotal > 500 ? 0 : 25;
+  const shipping = 80;
   const total = subtotal + shipping;
 
   const hasInventoryData = Object.keys(stock).length > 0;
@@ -33,7 +34,7 @@ export default function CartPage() {
     orderText += `Customer Details:\n`;
     orderText += `Name: ${name}\n`;
     orderText += `Phone: ${phone}\n`;
-    orderText += `Address: ${address}\n\n`;
+    orderText += `Address: ${address}, ${city}\n\n`;
     
     orderText += `Order Items:\n`;
     items.forEach(item => {
@@ -42,7 +43,7 @@ export default function CartPage() {
     
     orderText += `\nSummary:\n`;
     orderText += `Subtotal: ${subtotal} EGP\n`;
-    orderText += `Shipping: ${shipping === 0 ? "Complimentary" : shipping + " EGP"}\n`;
+    orderText += `Shipping: ${shipping} EGP\n`;
     orderText += `Total: ${total} EGP\n`;
     
     try {
@@ -203,7 +204,7 @@ export default function CartPage() {
                           </div>
 
                           <span className="font-medium text-sm text-primary">
-                            ${(item.product.price * item.quantity).toLocaleString()}
+                            {(item.product.price * item.quantity).toLocaleString()} EGP
                           </span>
                         </div>
                       </div>
@@ -224,28 +225,20 @@ export default function CartPage() {
               <div className="space-y-4 pb-6 border-b border-primary/10">
                 <div className="flex justify-between text-sm">
                   <span className="text-on-surface-variant">Subtotal</span>
-                  <span className="text-primary font-medium">${subtotal.toLocaleString()}</span>
+                  <span className="text-primary font-medium">{subtotal.toLocaleString()} EGP</span>
                 </div>
                 <div className="flex justify-between text-sm">
                   <span className="text-on-surface-variant">Shipping</span>
-                  <span className="text-primary font-medium">
-                    {shipping === 0 ? (
-                      <span className="text-[#4A7C59]">Complimentary</span>
-                    ) : (
-                      `$${shipping}`
-                    )}
-                  </span>
+                  <span className="text-primary font-medium">{shipping} EGP</span>
                 </div>
-                {shipping > 0 && (
-                  <p className="text-[0.6rem] text-on-surface-variant/70">
-                    Free shipping on orders over $500
-                  </p>
-                )}
+                <p className="text-[0.6rem] text-on-surface-variant/70 text-right">
+                  Delivery only in Cairo & Giza
+                </p>
               </div>
 
               <div className="flex justify-between py-6 border-b border-primary/10">
                 <span className="font-serif text-lg uppercase tracking-tight text-primary">Total</span>
-                <span className="font-serif text-lg text-primary">${total.toLocaleString()}</span>
+                <span className="font-serif text-lg text-primary">{total.toLocaleString()} EGP</span>
               </div>
 
               <div className="pt-8 space-y-4">
@@ -326,6 +319,17 @@ export default function CartPage() {
                   />
                 </div>
                 <div>
+                  <label className="block text-[0.65rem] uppercase tracking-widest text-primary/70 mb-2">City</label>
+                  <select 
+                    value={city}
+                    onChange={(e) => setCity(e.target.value)}
+                    className="w-full bg-surface-container border border-primary/20 p-3 text-sm focus:outline-none focus:border-primary transition-colors text-primary"
+                  >
+                    <option value="Cairo">Cairo</option>
+                    <option value="Giza">Giza</option>
+                  </select>
+                </div>
+                <div>
                   <label className="block text-[0.65rem] uppercase tracking-widest text-primary/70 mb-2">Delivery Address</label>
                   <textarea 
                     required 
@@ -333,7 +337,7 @@ export default function CartPage() {
                     value={address}
                     onChange={(e) => setAddress(e.target.value)}
                     className="w-full bg-surface-container border border-primary/20 p-3 text-sm focus:outline-none focus:border-primary transition-colors text-primary resize-none"
-                    placeholder="City, Area, Street, Building, Floor/Apt"
+                    placeholder="Area, Street, Building, Floor/Apt"
                   />
                 </div>
                 <Button type="submit" className="w-full mt-4 !mt-8" disabled={isSubmitting}>

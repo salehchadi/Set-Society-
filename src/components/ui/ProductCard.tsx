@@ -55,7 +55,7 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
         <img
           src={product.image}
           alt={`${product.name} - ${product.color}`}
-          className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+          className="w-full h-full object-contain p-4 transition-transform duration-1000 group-hover:scale-105"
           referrerPolicy="no-referrer"
         />
 

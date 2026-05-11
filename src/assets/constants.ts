@@ -1,11 +1,11 @@
 import logoImg from './images/logo.png';
-import heroImg from './images/main_image.png';
-import blackJacketImg from './images/BLACK_jacket.jpg';
-import blackPantsImg from './images/black pants.jpg';
-import blackDressImg from './images/image copy.png';
-import whiteJacketImg from './images/off white jacket.png';
-import whitePantsImg from './images/off white pants  copy.png';
-import whiteDressImg from './images/offwhite set  copy.png';
+import heroImg from './images/coming soon.png';
+import blackJacketImg from './images/black jacket.png';
+import blackPantsImg from './images/black pants.png';
+import blackDressImg from './images/black set.png';
+import whiteJacketImg from './images/White_jacket.png';
+import whitePantsImg from './images/white pants.png';
+import whiteDressImg from './images/white_set.png';
 
 export const IMAGES = {
   logo: logoImg,
