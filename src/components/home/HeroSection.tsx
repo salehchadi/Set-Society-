@@ -34,10 +34,10 @@ export default function HeroSection() {
 
   return (
     <section ref={containerRef} className="relative h-[200vh] bg-[#05070A]">
-      <div className="sticky top-0 h-screen w-full overflow-hidden">
+      <div className="sticky top-0 h-screen w-full overflow-hidden pt-28">
         
         {/* Background Image (coming soon image with the actual zipper teeth and text) */}
-        <div className="absolute inset-0">
+        <div className="absolute inset-x-0 bottom-0 top-28">
           <img
             src={IMAGES.hero}
             alt="Main Image"
@@ -49,7 +49,7 @@ export default function HeroSection() {
         {/* Dynamic Dark Overlay (Acts as the unzipping jacket) */}
         <motion.div
           style={{ clipPath }}
-          className="absolute inset-0 bg-[#05070A] shadow-[0_-20px_50px_rgba(0,0,0,0.8)] z-20"
+          className="absolute inset-x-0 bottom-0 top-28 bg-[#05070A] shadow-[0_-20px_50px_rgba(0,0,0,0.8)] z-20"
         >
           {/* Add a subtle internal shadow along the edges of the cut */}
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,transparent_50%,rgba(0,0,0,0.5)_100%)]" />
