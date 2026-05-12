@@ -107,7 +107,7 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
             })}
           </div>
 
-          {/* Add to cart / Preorder button */}
+          {/* Add to cart button */}
           <motion.button
             whileHover={!isSelectedSizeOutOfStock ? { scale: 1.02 } : {}}
             whileTap={!isSelectedSizeOutOfStock ? { scale: 0.98 } : {}}

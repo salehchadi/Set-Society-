@@ -42,10 +42,11 @@ export default function ProductDetailsPage() {
     return stock[`${product.id}-${size}`];
   };
 
-  const isSelectedSizeOutOfStock = getStockForSize(selectedSize) === 0;
-  const isPreorder = hasInventoryData && product.sizes.every((size) => getStockForSize(size) === 0);
+  const isSelectedSizeOutOfStock = hasInventoryData && getStockForSize(selectedSize) === 0;
+  const isProductSoldOut = hasInventoryData && product.sizes.every((size) => getStockForSize(size) === 0);
 
   const handleAddToCart = () => {
+    if (isSelectedSizeOutOfStock) return;
     addItem(product, selectedSize);
     setAdded(true);
     setTimeout(() => setAdded(false), 1500);
@@ -70,14 +71,14 @@ export default function ProductDetailsPage() {
               className="w-full h-full object-cover"
               referrerPolicy="no-referrer"
             />
-            {isPreorder && (
-              <div className="absolute top-4 right-4 z-20">
-                <span className="bg-[#4A7C59] text-white px-4 py-2 tracking-[0.2em] uppercase font-semibold text-xs shadow-xl">
-                  Preorder
+            {isProductSoldOut && (
+              <div className="absolute inset-0 bg-surface/40 z-10 flex items-center justify-center backdrop-blur-[1px]">
+                <span className="bg-surface text-primary px-4 py-2 tracking-[0.3em] uppercase font-semibold text-[0.65rem] shadow-xl">
+                  Out of Stock
                 </span>
               </div>
             )}
-            {!isPreorder && product.isNew && (
+            {!isProductSoldOut && product.isNew && (
               <div className="absolute top-4 left-4 z-20">
                 <span className="bg-primary text-white px-4 py-2 tracking-[0.2em] uppercase font-semibold text-xs shadow-xl">
                   New
@@ -169,22 +170,29 @@ export default function ProductDetailsPage() {
             {/* Actions */}
             <div className="space-y-4">
               {isSelectedSizeOutOfStock && hasInventoryData && (
-                 <div className="p-3 bg-[#4A7C59]/10 text-[#4A7C59] text-xs border border-[#4A7C59]/20 flex items-start gap-2">
+                 <div className="p-3 bg-surface-container text-on-surface-variant text-xs border border-primary/10 flex items-start gap-2">
                     <AlertCircle size={14} className="shrink-0 mt-0.5" />
-                    <span>This size is currently on preorder and will be shipped as soon as it becomes available.</span>
+                    <span>This size is currently out of stock.</span>
                  </div>
               )}
               <Button
                 onClick={handleAddToCart}
                 size="lg"
-                className={`w-full ${added ? "!bg-[#4A7C59] !border-[#4A7C59]" : ""}`}
+                disabled={isSelectedSizeOutOfStock}
+                className={`w-full ${
+                  isSelectedSizeOutOfStock
+                    ? "!bg-surface-dim !text-on-surface-variant !border-surface-dim cursor-not-allowed"
+                    : added
+                    ? "!bg-[#4A7C59] !border-[#4A7C59]"
+                    : ""
+                }`}
               >
                 {added ? (
                   "Added to Cart ✓"
                 ) : (
                   <>
                     <ShoppingBag size={18} className="mr-2" />
-                    {isSelectedSizeOutOfStock ? "Preorder Now" : "Add to Cart"}
+                    {isSelectedSizeOutOfStock ? "Out of Stock" : "Add to Cart"}
                   </>
                 )}
               </Button>
@@ -194,7 +202,7 @@ export default function ProductDetailsPage() {
             <div className="mt-12 space-y-4 text-sm text-on-surface-variant">
                <div className="border-t border-primary/10 pt-4">
                   <p className="uppercase tracking-widest text-xs font-semibold text-primary mb-2">Delivery</p>
-                  <p>Standard delivery within 3-5 business days. Preorders may take longer.</p>
+                  <p>Standard delivery within 3-5 business days.</p>
                </div>
                <div className="border-t border-primary/10 pt-4">
                   <p className="uppercase tracking-widest text-xs font-semibold text-primary mb-2">Returns</p>
