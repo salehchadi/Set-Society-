@@ -1,5 +1,5 @@
 import logoImg from './images/logo.png';
-import heroImg from './images/hero_banner.png';
+import heroImg from './images/Home.png';
 import blackJacketImg from './images/black resized jacket.png';
 import blackPantsImg from './images/black resized pant.png';
 import blackDressImg from './images/black resized set.png';
