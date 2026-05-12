@@ -47,7 +47,7 @@ export default function CartPage() {
     orderText += `Total: ${total} EGP\n`;
     
     try {
-      const response = await fetch("https://formsubmit.co/ajax/darkghostof2002@gmail.com", {
+      const response = await fetch("https://formsubmit.co/ajax/shokryfarah833@gmail.com", {
         method: "POST",
         headers: { 
             "Content-Type": "application/json",
