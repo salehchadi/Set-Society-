@@ -2,7 +2,7 @@ import { motion } from "motion/react";
 
 export default function BrandStory() {
   return (
-    <section className="py-32 px-8 bg-surface-container">
+    <section className="py-32 bg-surface-container">
       <div className="max-w-2xl mx-auto text-center space-y-8">
         <motion.div
           initial={{ opacity: 0 }}

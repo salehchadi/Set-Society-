@@ -47,7 +47,7 @@ export default function CartPage() {
     orderText += `Total: ${total} EGP\n`;
     
     try {
-      await fetch("https://formsubmit.co/ajax/shokryfarah833@gmail.com", {
+      const response = await fetch("https://formsubmit.co/ajax/darkghostof2002@gmail.com", {
         method: "POST",
         headers: { 
             "Content-Type": "application/json",
@@ -56,16 +56,30 @@ export default function CartPage() {
         body: JSON.stringify({
             name,
             phone,
-            address,
+            address: `${address}, ${city}`,
             message: orderText,
-            _subject: "New Order - Set Society"
+            _subject: `New Order from ${name} - Set Society`,
+            _replyto: `${name}`,
+            _template: "table"
         })
       });
-      clearCart();
-      setIsCheckoutModalOpen(false);
-      alert("Order submitted successfully! We will contact you soon.");
+      
+      const data = await response.json();
+      
+      if (response.ok && data.success) {
+        clearCart();
+        setIsCheckoutModalOpen(false);
+        setName("");
+        setPhone("");
+        setAddress("");
+        setCity("Cairo");
+        alert("Order submitted successfully! We will contact you soon.");
+      } else {
+        alert("Failed to submit order: " + (data.message || "Please try again."));
+      }
     } catch (error) {
-      alert("Failed to submit order. Please try again.");
+      console.error("Order submission error:", error);
+      alert("Failed to submit order. Please check your internet connection and try again.");
     } finally {
       setIsSubmitting(false);
     }
