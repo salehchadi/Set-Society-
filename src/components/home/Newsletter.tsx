@@ -3,7 +3,7 @@ import { ArrowRight } from "lucide-react";
 
 export default function Newsletter() {
   return (
-    <section className="py-40 bg-primary text-white overflow-hidden relative">
+    <section className="py-40 px-8 bg-primary text-white overflow-hidden relative">
       <div className="max-w-xl mx-auto text-center space-y-12 relative z-10">
         <motion.h3
           initial={{ opacity: 0, y: 20 }}

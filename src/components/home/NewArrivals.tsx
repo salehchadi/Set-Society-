@@ -7,7 +7,7 @@ export default function NewArrivals() {
   const featured = PRODUCTS;
 
   return (
-    <section className="py-32 max-w-[1920px] mx-auto">
+    <section className="py-32 px-6 md:px-12 max-w-[1920px] mx-auto">
       <div className="flex flex-col items-center mb-16 text-center">
         <div className="space-y-2">
           <h2 className="font-serif text-4xl md:text-5xl uppercase tracking-tighter text-primary">

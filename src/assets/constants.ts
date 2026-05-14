@@ -4,8 +4,8 @@ import blackJacketImg from './images/black resized jacket.png';
 import blackPantsImg from './images/black resized pant.png';
 import blackDressImg from './images/black resized set.png';
 import whiteJacketImg from './images/white resized jacket.png';
-import whitePantsImg from './images/white resized pants.png';
-import whiteDressImg from './images/white resized set.png';
+import whitePantsImg from './images/white final pants.png';
+import whiteDressImg from './images/white final set.png';
 
 export const IMAGES = {
   logo: logoImg,
@@ -58,7 +58,7 @@ const pantSizeChart: SizeChartRow[] = [
 export const PRODUCTS: Product[] = [
   {
     id: "1",
-    name: "Everyday Jacket",
+    name: "Everyday Black Jacket",
     price: 1300,
     category: "Outerwear",
     color: "Black",
@@ -71,7 +71,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: "2",
-    name: "Everyday Pants",
+    name: "Everyday Black Pants",
     price: 1250,
     category: "Bottoms",
     color: "Black",
@@ -97,7 +97,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: "4",
-    name: "Everyday Jacket",
+    name: "Everyday Off White Jacket",
     price: 1300,
     category: "Outerwear",
     color: "Off White",
@@ -110,7 +110,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: "5",
-    name: "Everyday Pants",
+    name: "Everyday Off White Pants",
     price: 1250,
     category: "Bottoms",
     color: "Off White",
@@ -123,7 +123,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: "6",
-    name: "Everyday Set",
+    name: "Everyday Off White Set",
     price: 2400,
     category: "Sets",
     color: "Off White",
