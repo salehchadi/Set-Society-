@@ -58,7 +58,7 @@ const pantSizeChart: SizeChartRow[] = [
 export const PRODUCTS: Product[] = [
   {
     id: "1",
-    name: "Classic Black Jacket",
+    name: "Everyday Jacket",
     price: 1300,
     category: "Outerwear",
     color: "Black",
@@ -71,7 +71,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: "2",
-    name: "Classic Black Pants",
+    name: "Everyday Pants",
     price: 1250,
     category: "Bottoms",
     color: "Black",
@@ -97,7 +97,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: "4",
-    name: "Classic Off White Jacket",
+    name: "Everyday Jacket",
     price: 1300,
     category: "Outerwear",
     color: "Off White",
@@ -110,7 +110,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: "5",
-    name: "Classic Off White Pants",
+    name: "Everyday Pants",
     price: 1250,
     category: "Bottoms",
     color: "Off White",

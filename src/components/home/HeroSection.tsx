@@ -16,14 +16,14 @@ export default function HeroSection() {
 
   // Calculate the V-opening coordinates based on scroll progress
   // Fully closed (0%): The V is collapsed at the top (0,0)
-  // Fully open (100%): The V top corners reach 50% height, and the V bottom point (zipper pull) reaches 82% height.
-  // This matches the angle of the jacket in 'coming soon.jpg'
-  const valTopY = useTransform(scrollYProgress, [0, 1], [0, 48]);
-  const valY = useTransform(scrollYProgress, [0, 1], [0, 83]);
+  // Fully open (100%): The V top corners reach 52% height, and the V bottom point (zipper pull) reaches 92% height.
+  // Adjusted for object-cover full-bleed image
+  const valTopY = useTransform(scrollYProgress, [0, 1], [0, 52]);
+  const valY = useTransform(scrollYProgress, [0, 1], [0, 92]);
 
   // clipPath covers everything EXCEPT the V-opening.
   // Starts as a full rectangle (0 0, 50 0, 100 0, 100 100, 0 100)
-  // Opens to (0 48%, 50 83%, 100 48%, 100 100%, 0 100%)
+  // Opens to (0 52%, 50 92%, 100 52%, 100 100%, 0 100%)
   const clipPath = useMotionTemplate`polygon(0% ${valTopY}%, 50% ${valY}%, 100% ${valTopY}%, 100% 100%, 0% 100%)`;
 
   // Position the zipper pull exactly at the bottom of the V
@@ -41,7 +41,7 @@ export default function HeroSection() {
           <img
             src={IMAGES.hero}
             alt="Main Image"
-            className="w-full h-full object-contain object-top"
+            className="w-full h-full object-cover object-top"
             referrerPolicy="no-referrer"
           />
         </div>
