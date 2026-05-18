@@ -47,20 +47,20 @@ export default function CartPage() {
     orderText += `Total: ${total} EGP\n`;
     
     try {
-      const response = await fetch("https://formsubmit.co/ajax/shokryfarah833@gmail.com", {
+      const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
         headers: { 
             "Content-Type": "application/json",
             "Accept": "application/json"
         },
         body: JSON.stringify({
+            access_key: "2e16dc02-ae14-43eb-b4f3-37ce31a85462",
             name,
             phone,
             address: `${address}, ${city}`,
             message: orderText,
-            _subject: `New Order from ${name} - Set Society`,
-            _replyto: `${name}`,
-            _template: "table"
+            subject: `New Order from ${name} - Set Society`,
+            from_name: "Set Society Store"
         })
       });
       
