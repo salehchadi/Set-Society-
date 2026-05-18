@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import { FOOTER_LINKS } from "../../assets/constants";
 
 export default function Footer() {
   return (
@@ -9,40 +8,34 @@ export default function Footer() {
           <Link to="/">
             <h2 className="font-logo text-5xl text-primary">Set Society</h2>
           </Link>
-          <nav className="flex flex-col space-y-4">
-            {FOOTER_LINKS.map((link) =>
-              link.path.startsWith("/") ? (
-                <Link
-                  key={link.label}
-                  to={link.path}
-                  className="text-[0.65rem] uppercase tracking-[0.2em] text-primary/60 hover:text-primary transition-colors hover:underline underline-offset-8"
-                >
-                  {link.label}
-                </Link>
-              ) : (
-                <a
-                  key={link.label}
-                  href={link.path}
-                  className="text-[0.65rem] uppercase tracking-[0.2em] text-primary/60 hover:text-primary transition-colors hover:underline underline-offset-8"
-                >
-                  {link.label}
-                </a>
-              )
-            )}
-          </nav>
         </div>
 
         <div className="space-y-12 md:text-right w-full md:w-auto">
           <div className="flex gap-8 md:justify-end">
-            {["Facebook", "Instagram", "TikTok"].map((social) => (
-              <a
-                key={social}
-                href="#"
-                className="text-[0.65rem] uppercase tracking-[0.2em] text-primary hover:underline underline-offset-8"
-              >
-                {social}
-              </a>
-            ))}
+            <a
+              href="https://www.facebook.com/share/14jR78eSVMy/?mibextid=wwXIfr"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[0.65rem] uppercase tracking-[0.2em] text-primary hover:underline underline-offset-8"
+            >
+              Facebook
+            </a>
+            <a
+              href="https://www.instagram.com/set__society?igsh=b2E1NW9yYndsOTFo&utm_source=qr"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[0.65rem] uppercase tracking-[0.2em] text-primary hover:underline underline-offset-8"
+            >
+              Instagram
+            </a>
+            <a
+              href="https://www.tiktok.com/@set_society"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[0.65rem] uppercase tracking-[0.2em] text-primary hover:underline underline-offset-8"
+            >
+              TikTok
+            </a>
           </div>
           <p className="text-[0.6rem] uppercase tracking-[0.25em] text-primary/40">
             © 2026 SET SOCIETY ALL RIGHTS RESERVED

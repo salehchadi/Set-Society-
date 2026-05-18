@@ -74,15 +74,30 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
             {/* Footer */}
             <div className="mt-auto p-8 space-y-4">
               <div className="flex gap-6">
-                {["Facebook", "Instagram", "TikTok"].map((social) => (
-                  <a
-                    key={social}
-                    href="#"
-                    className="text-[0.65rem] uppercase tracking-[0.2em] text-primary/50 hover:text-primary transition-colors"
-                  >
-                    {social}
-                  </a>
-                ))}
+                <a
+                  href="https://www.facebook.com/share/14jR78eSVMy/?mibextid=wwXIfr"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[0.65rem] uppercase tracking-[0.2em] text-primary/50 hover:text-primary transition-colors"
+                >
+                  Facebook
+                </a>
+                <a
+                  href="https://www.instagram.com/set__society?igsh=b2E1NW9yYndsOTFo&utm_source=qr"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[0.65rem] uppercase tracking-[0.2em] text-primary/50 hover:text-primary transition-colors"
+                >
+                  Instagram
+                </a>
+                <a
+                  href="https://www.tiktok.com/@set_society"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[0.65rem] uppercase tracking-[0.2em] text-primary/50 hover:text-primary transition-colors"
+                >
+                  TikTok
+                </a>
               </div>
               <p className="text-[0.55rem] uppercase tracking-[0.25em] text-primary/30">
                 © 2026 SET SOCIETY
