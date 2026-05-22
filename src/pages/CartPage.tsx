@@ -67,6 +67,9 @@ export default function CartPage() {
       const data = await response.json();
       
       if (response.ok && data.success) {
+        if ((window as any).fbq) {
+          (window as any).fbq('track', 'Purchase', { value: total, currency: 'EGP' });
+        }
         clearCart();
         setIsCheckoutModalOpen(false);
         setName("");
@@ -259,7 +262,12 @@ export default function CartPage() {
                 <Button 
                   className="w-full" 
                   size="lg" 
-                  onClick={() => setIsCheckoutModalOpen(true)}
+                  onClick={() => {
+                    if ((window as any).fbq) {
+                      (window as any).fbq('track', 'InitiateCheckout');
+                    }
+                    setIsCheckoutModalOpen(true);
+                  }}
                 >
                   Proceed to Checkout <ArrowRight size={14} />
                 </Button>

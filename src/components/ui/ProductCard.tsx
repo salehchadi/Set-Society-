@@ -33,6 +33,14 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
   const handleAddToCart = (e: React.MouseEvent) => {
     e.stopPropagation();
     if (isSelectedSizeOutOfStock) return;
+    if ((window as any).fbq) {
+      (window as any).fbq('track', 'AddToCart', {
+        content_name: product.name,
+        content_category: product.category,
+        value: product.price,
+        currency: 'EGP'
+      });
+    }
     addItem(product, selectedSize);
     setAdded(true);
     setTimeout(() => setAdded(false), 1500);
