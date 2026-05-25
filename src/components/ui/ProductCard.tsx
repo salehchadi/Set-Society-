@@ -1,10 +1,11 @@
 import { motion } from "motion/react";
 import { ShoppingBag } from "lucide-react";
-import { useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import type { Product } from "../../assets/constants";
 import { useCart } from "../../context/CartContext";
 import { useInventory } from "../../context/InventoryContext";
+import { trackEvent } from "../../utils/pixel";
 
 interface ProductCardProps {
   product: Product;
@@ -33,14 +34,12 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
   const handleAddToCart = (e: React.MouseEvent) => {
     e.stopPropagation();
     if (isSelectedSizeOutOfStock) return;
-    if ((window as any).fbq) {
-      (window as any).fbq('track', 'AddToCart', {
-        content_name: product.name,
-        content_category: product.category,
-        value: product.price,
-        currency: 'EGP'
-      });
-    }
+    trackEvent('AddToCart', {
+      content_name: product.name,
+      content_category: product.category,
+      value: product.price,
+      currency: 'EGP'
+    });
     addItem(product, selectedSize);
     setAdded(true);
     setTimeout(() => setAdded(false), 1500);

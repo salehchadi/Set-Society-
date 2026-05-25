@@ -1,11 +1,12 @@
 import { motion, AnimatePresence } from "motion/react";
 import { Minus, Plus, X, ArrowRight, ShoppingBag, AlertCircle } from "lucide-react";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import React, { useState } from "react";
 import { useCart } from "../context/CartContext";
 import { useInventory } from "../context/InventoryContext";
 import AnimatedSection from "../components/ui/AnimatedSection";
 import Button from "../components/ui/Button";
+import { trackEvent } from "../utils/pixel";
 
 export default function CartPage() {
   const { items, updateQuantity, removeItem, clearCart, subtotal, itemCount } = useCart();
@@ -67,9 +68,7 @@ export default function CartPage() {
       const data = await response.json();
       
       if (response.ok && data.success) {
-        if ((window as any).fbq) {
-          (window as any).fbq('track', 'Purchase', { value: total, currency: 'EGP' });
-        }
+        trackEvent('Purchase', { value: total, currency: 'EGP' });
         clearCart();
         setIsCheckoutModalOpen(false);
         setName("");
@@ -263,9 +262,7 @@ export default function CartPage() {
                   className="w-full" 
                   size="lg" 
                   onClick={() => {
-                    if ((window as any).fbq) {
-                      (window as any).fbq('track', 'InitiateCheckout');
-                    }
+                    trackEvent('InitiateCheckout');
                     setIsCheckoutModalOpen(true);
                   }}
                 >

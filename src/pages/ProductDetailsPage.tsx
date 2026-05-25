@@ -8,6 +8,8 @@ import { useInventory } from "../context/InventoryContext";
 import AnimatedSection from "../components/ui/AnimatedSection";
 import Button from "../components/ui/Button";
 
+import { trackEvent } from "../utils/pixel";
+
 export default function ProductDetailsPage() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
@@ -47,14 +49,12 @@ export default function ProductDetailsPage() {
 
   const handleAddToCart = () => {
     if (isSelectedSizeOutOfStock) return;
-    if ((window as any).fbq) {
-      (window as any).fbq('track', 'AddToCart', {
-        content_name: product.name,
-        content_category: product.category,
-        value: product.price,
-        currency: 'EGP'
-      });
-    }
+    trackEvent('AddToCart', {
+      content_name: product.name,
+      content_category: product.category,
+      value: product.price,
+      currency: 'EGP'
+    });
     addItem(product, selectedSize);
     setAdded(true);
     setTimeout(() => setAdded(false), 1500);
