@@ -32,6 +32,7 @@ export interface Product {
   id: string;
   name: string;
   price: number;
+  originalPrice?: number;
   category: string;
   color: string;
   sizes: string[];
@@ -85,7 +86,8 @@ export const PRODUCTS: Product[] = [
   {
     id: "3",
     name: "Everyday Set",
-    price: 2400,
+    price: 2000,
+    originalPrice: 2400,
     category: "Sets",
     color: "Black",
     sizes: ["XS", "S", "M", "L", "XL"],
@@ -124,7 +126,8 @@ export const PRODUCTS: Product[] = [
   {
     id: "6",
     name: "Everyday Off White Set",
-    price: 2400,
+    price: 2000,
+    originalPrice: 2400,
     category: "Sets",
     color: "Off White",
     sizes: ["XS", "S", "M", "L", "XL"],

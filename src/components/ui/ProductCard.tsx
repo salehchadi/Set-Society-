@@ -75,6 +75,15 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
           </div>
         )}
 
+        {/* Sale badge */}
+        {!isProductSoldOut && product.originalPrice && (
+          <div className="absolute top-4 right-4 z-20">
+            <span className="bg-red-700 text-white text-[0.55rem] uppercase tracking-[0.2em] px-3 py-1.5 font-semibold">
+              Sale
+            </span>
+          </div>
+        )}
+
         {/* Sold out backdrop overlay */}
         {isProductSoldOut && (
           <div className="absolute inset-0 bg-surface/40 z-10 flex items-center justify-center backdrop-blur-[1px]">
@@ -156,7 +165,14 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
             {product.color} / {product.material}
           </p>
         </div>
-        <span className="font-medium text-sm text-primary">{product.price} EGP</span>
+        {product.originalPrice ? (
+          <div className="flex flex-col items-end">
+            <span className="line-through text-xs text-on-surface-variant font-light">{product.originalPrice} EGP</span>
+            <span className="font-semibold text-sm text-red-700">{product.price} EGP</span>
+          </div>
+        ) : (
+          <span className="font-medium text-sm text-primary">{product.price} EGP</span>
+        )}
       </div>
 
       {showSizeChartModal && product.sizeChart && (
