@@ -86,7 +86,7 @@ export const PRODUCTS: Product[] = [
   {
     id: "3",
     name: "Everyday Set",
-    price: 2000,
+    price: 1500,
     originalPrice: 2400,
     category: "Sets",
     color: "Black",
@@ -126,7 +126,7 @@ export const PRODUCTS: Product[] = [
   {
     id: "6",
     name: "Everyday Off White Set",
-    price: 2000,
+    price: 1500,
     originalPrice: 2400,
     category: "Sets",
     color: "Off White",

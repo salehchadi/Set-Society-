@@ -12,14 +12,15 @@ interface ProductCardProps {
   index?: number;
 }
 
-export default function ProductCard({ product, index = 0 }: ProductCardProps) {
+export default function ProductCard({ product: rawProduct, index = 0 }: ProductCardProps) {
+  const { stock, getDynamicProduct } = useInventory();
+  const product = getDynamicProduct(rawProduct);
   const [selectedSize, setSelectedSize] = useState(product.sizes[1] || product.sizes[0]);
   const [showSizes, setShowSizes] = useState(false);
   const [added, setAdded] = useState(false);
   const [showSizeChartModal, setShowSizeChartModal] = useState(false);
   const { addItem } = useCart();
   const navigate = useNavigate();
-  const { stock } = useInventory();
 
   const hasInventoryData = Object.keys(stock).length > 0;
   
@@ -44,6 +45,8 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
     setAdded(true);
     setTimeout(() => setAdded(false), 1500);
   };
+
+  const hasSale = Boolean(product.originalPrice && product.originalPrice > product.price);
 
   return (
     <motion.div
@@ -76,9 +79,9 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
         )}
 
         {/* Sale badge */}
-        {!isProductSoldOut && product.originalPrice && (
+        {!isProductSoldOut && hasSale && (
           <div className="absolute top-4 right-4 z-20">
-            <span className="bg-red-700 text-white text-[0.55rem] uppercase tracking-[0.2em] px-3 py-1.5 font-semibold">
+            <span className="bg-red-700 text-white text-[0.55rem] uppercase tracking-[0.2em] px-3 py-1.5 font-semibold shadow-sm">
               Sale
             </span>
           </div>
@@ -165,7 +168,7 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
             {product.color} / {product.material}
           </p>
         </div>
-        {product.originalPrice ? (
+        {hasSale ? (
           <div className="flex flex-col items-end">
             <span className="line-through text-xs text-on-surface-variant font-light">{product.originalPrice} EGP</span>
             <span className="font-semibold text-sm text-red-700">{product.price} EGP</span>

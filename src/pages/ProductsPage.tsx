@@ -2,6 +2,7 @@ import { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { SlidersHorizontal, X, ChevronDown } from "lucide-react";
 import { PRODUCTS, CATEGORIES, COLORS, SORT_OPTIONS } from "../assets/constants";
+import { useInventory } from "../context/InventoryContext";
 import ProductCard from "../components/ui/ProductCard";
 import AnimatedSection from "../components/ui/AnimatedSection";
 
@@ -11,9 +12,12 @@ export default function ProductsPage() {
   const [sortBy, setSortBy] = useState("newest");
   const [filtersOpen, setFiltersOpen] = useState(false);
   const [sortOpen, setSortOpen] = useState(false);
+  const { getDynamicProduct } = useInventory();
+
+  const products = useMemo(() => PRODUCTS.map(getDynamicProduct), [getDynamicProduct]);
 
   const filtered = useMemo(() => {
-    let result = [...PRODUCTS];
+    let result = [...products];
 
     if (category !== "All") {
       result = result.filter((p) => p.category === category);
@@ -41,7 +45,7 @@ export default function ProductsPage() {
     }
 
     return result;
-  }, [category, color, sortBy]);
+  }, [products, category, color, sortBy]);
 
   const activeFilters = [
     ...(category !== "All" ? [{ label: category, clear: () => setCategory("All") }] : []),

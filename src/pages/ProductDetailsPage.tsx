@@ -13,10 +13,11 @@ import { trackEvent } from "../utils/pixel";
 export default function ProductDetailsPage() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const product = PRODUCTS.find((p) => p.id === id);
+  const rawProduct = PRODUCTS.find((p) => p.id === id);
 
   const { addItem } = useCart();
-  const { stock } = useInventory();
+  const { stock, getDynamicProduct } = useInventory();
+  const product = rawProduct ? getDynamicProduct(rawProduct) : undefined;
 
   const [selectedSize, setSelectedSize] = useState("");
   const [added, setAdded] = useState(false);
@@ -26,7 +27,7 @@ export default function ProductDetailsPage() {
     if (product) {
       setSelectedSize(product.sizes[1] || product.sizes[0]);
     }
-  }, [product]);
+  }, [product?.id]);
 
   if (!product) {
     return (
@@ -46,6 +47,7 @@ export default function ProductDetailsPage() {
 
   const isSelectedSizeOutOfStock = hasInventoryData && getStockForSize(selectedSize) === 0;
   const isProductSoldOut = hasInventoryData && product.sizes.every((size) => getStockForSize(size) === 0);
+  const hasSale = Boolean(product.originalPrice && product.originalPrice > product.price);
 
   const handleAddToCart = () => {
     if (isSelectedSizeOutOfStock) return;
@@ -93,7 +95,7 @@ export default function ProductDetailsPage() {
                 </span>
               </div>
             )}
-            {!isProductSoldOut && product.originalPrice && (
+            {!isProductSoldOut && hasSale && (
               <div className="absolute top-4 right-4 z-20">
                 <span className="bg-red-700 text-white px-4 py-2 tracking-[0.2em] uppercase font-semibold text-xs shadow-xl">
                   Sale
@@ -113,12 +115,12 @@ export default function ProductDetailsPage() {
               <h1 className="font-serif text-4xl md:text-5xl uppercase tracking-tighter text-primary mb-4">
                 {product.name}
               </h1>
-              {product.originalPrice ? (
+              {hasSale ? (
                 <div className="flex items-center gap-3">
                   <span className="text-xl text-red-700 font-semibold">{product.price} EGP</span>
                   <span className="text-base line-through text-on-surface-variant font-light">{product.originalPrice} EGP</span>
                   <span className="text-[0.65rem] uppercase tracking-wider bg-red-50 text-red-700 font-bold px-2 py-0.5 border border-red-200">
-                    Save {product.originalPrice - product.price} EGP
+                    Save {product.originalPrice! - product.price} EGP
                   </span>
                 </div>
               ) : (
