@@ -2,7 +2,16 @@ import { motion } from "motion/react";
 import { ArrowRight } from "lucide-react";
 import AnimatedSection from "../components/ui/AnimatedSection";
 
-const SECTIONS = [
+interface PolicySection {
+  title: string;
+  content?: string[];
+  items?: string[];
+  steps?: { number: string; title: string; description: string }[];
+  details?: { label: string; value: string }[];
+  contact?: { label: string; value: string }[];
+}
+
+const SECTIONS: PolicySection[] = [
   {
     title: "Return & Exchange Policy",
     content: [

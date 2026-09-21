@@ -10,6 +10,7 @@ import { trackEvent } from "../../utils/pixel";
 interface ProductCardProps {
   product: Product;
   index?: number;
+  key?: React.Key;
 }
 
 export default function ProductCard({ product: rawProduct, index = 0 }: ProductCardProps) {

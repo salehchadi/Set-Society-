@@ -128,7 +128,7 @@ export default function AboutPage() {
           <AnimatedSection className="lg:w-1/2" direction="left">
             <div className="aspect-square lg:aspect-auto lg:h-full overflow-hidden">
               <img
-                src={IMAGES.product1}
+                src={IMAGES.hero}
                 alt="Inside our atelier"
                 className="w-full h-full object-cover"
                 referrerPolicy="no-referrer"

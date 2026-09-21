@@ -1,11 +1,12 @@
 import { motion, type Variants } from "motion/react";
-import type { ReactNode } from "react";
+import type { ReactNode, Key } from "react";
 
 interface AnimatedSectionProps {
   children: ReactNode;
   className?: string;
   delay?: number;
   direction?: "up" | "down" | "left" | "right";
+  key?: Key;
 }
 
 const directionMap = {

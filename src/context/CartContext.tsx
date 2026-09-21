@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useEffect, type ReactNode } from "react";
 import type { Product } from "../assets/constants";
+import { useInventory } from "./InventoryContext";
 
 export interface CartItem {
   product: Product;
@@ -36,24 +37,58 @@ function saveCart(items: CartItem[]) {
 
 export function CartProvider({ children }: { children: ReactNode }) {
   const [items, setItems] = useState<CartItem[]>(loadCart);
+  const { getDynamicProduct, stock } = useInventory();
+
+  // Synchronize cart items with dynamic database prices from Google Sheets
+  useEffect(() => {
+    setItems((prev) => {
+      let changed = false;
+      const next = prev.map((item) => {
+        const dyn = getDynamicProduct(item.product);
+        if (
+          dyn.price !== item.product.price ||
+          dyn.originalPrice !== item.product.originalPrice
+        ) {
+          changed = true;
+          return { ...item, product: dyn };
+        }
+        return item;
+      });
+      return changed ? next : prev;
+    });
+  }, [getDynamicProduct]);
 
   useEffect(() => {
     saveCart(items);
   }, [items]);
 
+  const getMaxStock = (productId: string, size: string): number => {
+    const key = `${productId}-${size}`;
+    return typeof stock[key] === "number" ? stock[key] : Infinity;
+  };
+
   const addItem = (product: Product, size: string) => {
+    const dynamicProduct = getDynamicProduct(product);
+    const maxStock = getMaxStock(dynamicProduct.id, size);
+    if (maxStock <= 0) return;
+
     setItems((prev) => {
       const existing = prev.find(
-        (item) => item.product.id === product.id && item.selectedSize === size
+        (item) => item.product.id === dynamicProduct.id && item.selectedSize === size
       );
       if (existing) {
+        if (existing.quantity >= maxStock) return prev;
         return prev.map((item) =>
-          item.product.id === product.id && item.selectedSize === size
-            ? { ...item, quantity: item.quantity + 1 }
+          item.product.id === dynamicProduct.id && item.selectedSize === size
+            ? {
+                ...item,
+                product: dynamicProduct,
+                quantity: Math.min(item.quantity + 1, maxStock),
+              }
             : item
         );
       }
-      return [...prev, { product, quantity: 1, selectedSize: size }];
+      return [...prev, { product: dynamicProduct, quantity: 1, selectedSize: size }];
     });
   };
 
@@ -70,10 +105,17 @@ export function CartProvider({ children }: { children: ReactNode }) {
       removeItem(productId, size);
       return;
     }
+    const maxStock = getMaxStock(productId, size);
+    const targetQty = Math.min(quantity, maxStock);
+    if (targetQty <= 0) {
+      removeItem(productId, size);
+      return;
+    }
+
     setItems((prev) =>
       prev.map((item) =>
         item.product.id === productId && item.selectedSize === size
-          ? { ...item, quantity }
+          ? { ...item, quantity: targetQty }
           : item
       )
     );

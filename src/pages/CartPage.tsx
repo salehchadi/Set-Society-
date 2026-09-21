@@ -204,19 +204,31 @@ export default function CartPage() {
                             <span className="w-10 h-9 flex items-center justify-center text-xs font-medium text-primary border-x border-primary/15">
                               {item.quantity}
                             </span>
-                            <button
-                              onClick={() =>
-                                updateQuantity(
-                                  item.product.id,
-                                  item.selectedSize,
-                                  item.quantity + 1
-                                )
-                              }
-                              className="w-9 h-9 flex items-center justify-center text-primary hover:bg-surface-container transition-colors"
-                              aria-label="Increase quantity"
-                            >
-                              <Plus size={14} />
-                            </button>
+                            {(() => {
+                              const itemStock = stock[`${item.product.id}-${item.selectedSize}`];
+                              const isMax = typeof itemStock === "number" && item.quantity >= itemStock;
+                              return (
+                                <button
+                                  onClick={() =>
+                                    updateQuantity(
+                                      item.product.id,
+                                      item.selectedSize,
+                                      item.quantity + 1
+                                    )
+                                  }
+                                  disabled={isMax}
+                                  className={`w-9 h-9 flex items-center justify-center transition-colors ${
+                                    isMax
+                                      ? "text-primary/30 cursor-not-allowed bg-surface-container/50"
+                                      : "text-primary hover:bg-surface-container"
+                                  }`}
+                                  aria-label="Increase quantity"
+                                  title={isMax ? "Maximum available stock reached" : "Increase quantity"}
+                                >
+                                  <Plus size={14} />
+                                </button>
+                              );
+                            })()}
                           </div>
 
                           <span className="font-medium text-sm text-primary">
