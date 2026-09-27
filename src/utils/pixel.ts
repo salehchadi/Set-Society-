@@ -15,7 +15,7 @@ export const initPixel = (pixelId?: string) => {
 
   let resolvedId = pixelId?.trim() || "";
   if (!resolvedId || resolvedId === "YOUR_PIXEL_ID") {
-    resolvedId = "1566529875188469";
+    resolvedId = "1811790967188190";
   }
 
   // If already loaded and initialized (e.g. via direct script in index.html), avoid re-initializing

@@ -119,7 +119,7 @@ Meta Pixel tracking is centralized in [`src/utils/pixel.ts`](src/utils/pixel.ts)
 npm install
 
 # 2. Configure environment variables (.env)
-VITE_META_PIXEL_ID="1566529875188469"
+VITE_META_PIXEL_ID="1811790967188190"
 
 # 3. Start local development server
 npm run dev
