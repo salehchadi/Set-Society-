@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import type { Product } from "../../assets/constants";
 import { useCart } from "../../context/CartContext";
 import { useInventory } from "../../context/InventoryContext";
-import { trackEvent } from "../../utils/pixel";
+import { trackAddToCart } from "../../utils/pixel";
 
 interface ProductCardProps {
   product: Product;
@@ -36,11 +36,12 @@ export default function ProductCard({ product: rawProduct, index = 0 }: ProductC
   const handleAddToCart = (e: React.MouseEvent) => {
     e.stopPropagation();
     if (isSelectedSizeOutOfStock) return;
-    trackEvent('AddToCart', {
-      content_name: product.name,
-      content_category: product.category,
+    trackAddToCart({
+      contentName: product.name,
+      contentCategory: product.category,
+      contentIds: [product.id],
       value: product.price,
-      currency: 'EGP'
+      currency: 'EGP',
     });
     addItem(product, selectedSize);
     setAdded(true);

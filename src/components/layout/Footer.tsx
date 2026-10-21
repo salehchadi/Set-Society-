@@ -37,9 +37,18 @@ export default function Footer() {
               TikTok
             </a>
           </div>
-          <p className="text-[0.6rem] uppercase tracking-[0.25em] text-primary/40">
-            © 2026 SET SOCIETY ALL RIGHTS RESERVED
-          </p>
+          <div className="flex items-center gap-4 md:justify-end">
+            <Link
+              to="/admin"
+              className="text-[0.6rem] uppercase tracking-[0.2em] text-primary/30 hover:text-primary transition-colors"
+            >
+              Admin Portal
+            </Link>
+            <span className="text-primary/20">·</span>
+            <p className="text-[0.6rem] uppercase tracking-[0.25em] text-primary/40">
+              © 2026 SET SOCIETY ALL RIGHTS RESERVED
+            </p>
+          </div>
         </div>
       </div>
     </footer>

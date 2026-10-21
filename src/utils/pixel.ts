@@ -1,50 +1,32 @@
 declare global {
   interface Window {
-    fbq?: any;
+    fbq?: (...args: any[]) => void;
     _fbq?: any;
   }
 }
 
+const PIXEL_ID = "1811790967188190";
+
 /**
  * Initializes the Meta Pixel.
- * In development mode, if the Pixel ID is a placeholder, it will mock the fbq functions
- * and log to the console to ensure seamless local testing without tracking real production data.
+ * The pixel script is already loaded via index.html's <script> tag.
+ * This function ensures fbq is available and re-initializes if needed.
  */
 export const initPixel = (pixelId?: string) => {
   if (typeof window === "undefined") return;
 
-  let resolvedId = pixelId?.trim() || "";
-  if (!resolvedId || resolvedId === "YOUR_PIXEL_ID") {
-    resolvedId = "1811790967188190";
-  }
+  const resolvedId = pixelId?.trim() || PIXEL_ID;
 
-  // If already loaded and initialized (e.g. via direct script in index.html), avoid re-initializing
-  if (window.fbq && window.fbq.loaded) {
+  // If already loaded and initialized (via index.html script), we're good
+  if (window.fbq) {
     console.log(
-      `%c[Meta Pixel] Already initialized (loaded via index.html/direct script)`,
+      `%c[Meta Pixel] Ready (ID: ${resolvedId})`,
       "color: #4caf50; font-weight: bold;"
     );
     return;
   }
 
-  if (!resolvedId || resolvedId === "YOUR_PIXEL_ID" || resolvedId.includes("MY_")) {
-    console.warn(
-      `%c[Meta Pixel] Pixel ID is set to a placeholder ("${resolvedId}"). Real tracking is disabled, but events will log to the console for testing.`,
-      "color: #ff9900; font-weight: bold;"
-    );
-
-    // Mock tracking function for easy console verification
-    window.fbq = function (action: string, eventName: string, data?: any) {
-      console.log(
-        `%c[Meta Pixel MOCK] [${action}] ${eventName}`,
-        "color: #1877f2; font-weight: bold;",
-        data || ""
-      );
-    };
-    return;
-  }
-
-  // Standard Meta Pixel code injection
+  // Fallback: inject the pixel script if it wasn't loaded by index.html
   (function (f: any, b: any, e: any, v: any, n?: any, t?: any, s?: any) {
     if (f.fbq) return;
     n = f.fbq = function () {
@@ -64,24 +46,126 @@ export const initPixel = (pixelId?: string) => {
 
   window.fbq("init", resolvedId);
   window.fbq("track", "PageView");
-  console.log(`%c[Meta Pixel] Successfully initialized with ID: ${resolvedId}`, "color: #4caf50; font-weight: bold;");
+  console.log(
+    `%c[Meta Pixel] Initialized with ID: ${resolvedId}`,
+    "color: #4caf50; font-weight: bold;"
+  );
 };
 
 /**
- * Tracks a standard Meta Pixel event.
+ * Tracks a standard Meta Pixel event with proper e-commerce parameters.
+ * Standard events: PageView, ViewContent, AddToCart, InitiateCheckout, Purchase, Lead
  */
-export const trackEvent = (eventName: string, data?: object) => {
+export const trackEvent = (eventName: string, data?: Record<string, any>) => {
   if (typeof window === "undefined") return;
 
   if (window.fbq) {
-    window.fbq("track", eventName, data);
-    // Add additional logging for developers in development
-    if (import.meta.env.DEV) {
-      console.log(`%c[Meta Pixel Event] ${eventName}`, "color: #1877f2;", data || "");
+    try {
+      if (data) {
+        window.fbq("track", eventName, data);
+      } else {
+        window.fbq("track", eventName);
+      }
+    } catch (err) {
+      console.warn(`[Meta Pixel] Error tracking event "${eventName}":`, err);
     }
   } else {
-    console.warn(`[Meta Pixel] fbq not initialized. Event ignored: ${eventName}`);
+    console.warn(`[Meta Pixel] fbq not available. Event ignored: ${eventName}`);
   }
+};
+
+/**
+ * Tracks a PageView event for single-page application route transitions.
+ */
+export const trackPageView = (path?: string) => {
+  if (typeof window === "undefined") return;
+  if (window.fbq) {
+    try {
+      window.fbq("track", "PageView", path ? { page_path: path } : undefined);
+    } catch (err) {
+      console.warn("[Meta Pixel] Error tracking PageView:", err);
+    }
+  }
+};
+
+/**
+ * Tracks a Purchase event with all required fields for Meta Ads conversion tracking.
+ * This is the most critical event for Meta Ads optimization.
+ */
+export const trackPurchase = (params: {
+  value: number;
+  currency: string;
+  contentIds?: string[];
+  contentName?: string;
+  contentType?: string;
+  numItems?: number;
+}) => {
+  trackEvent("Purchase", {
+    value: params.value,
+    currency: params.currency,
+    content_ids: params.contentIds || [],
+    content_name: params.contentName || "",
+    content_type: params.contentType || "product",
+    num_items: params.numItems || 1,
+  });
+};
+
+/**
+ * Tracks an AddToCart event with all required fields.
+ */
+export const trackAddToCart = (params: {
+  contentName: string;
+  contentCategory: string;
+  contentIds: string[];
+  value: number;
+  currency: string;
+}) => {
+  trackEvent("AddToCart", {
+    content_name: params.contentName,
+    content_category: params.contentCategory,
+    content_ids: params.contentIds,
+    content_type: "product",
+    value: params.value,
+    currency: params.currency,
+  });
+};
+
+/**
+ * Tracks an InitiateCheckout event with all required fields.
+ */
+export const trackInitiateCheckout = (params: {
+  value: number;
+  currency: string;
+  contentIds: string[];
+  numItems: number;
+}) => {
+  trackEvent("InitiateCheckout", {
+    value: params.value,
+    currency: params.currency,
+    content_ids: params.contentIds,
+    content_type: "product",
+    num_items: params.numItems,
+  });
+};
+
+/**
+ * Tracks a ViewContent event with all required fields.
+ */
+export const trackViewContent = (params: {
+  contentName: string;
+  contentCategory: string;
+  contentIds: string[];
+  value: number;
+  currency: string;
+}) => {
+  trackEvent("ViewContent", {
+    content_name: params.contentName,
+    content_category: params.contentCategory,
+    content_ids: params.contentIds,
+    content_type: "product",
+    value: params.value,
+    currency: params.currency,
+  });
 };
 
 /**
@@ -91,11 +175,12 @@ export const trackCustomEvent = (eventName: string, data?: object) => {
   if (typeof window === "undefined") return;
 
   if (window.fbq) {
-    window.fbq("trackCustom", eventName, data);
-    if (import.meta.env.DEV) {
-      console.log(`%c[Meta Pixel Custom Event] ${eventName}`, "color: #1877f2; font-style: italic;", data || "");
+    try {
+      window.fbq("trackCustom", eventName, data);
+    } catch (err) {
+      console.warn(`[Meta Pixel] Error tracking custom event "${eventName}":`, err);
     }
   } else {
-    console.warn(`[Meta Pixel] fbq not initialized. Custom event ignored: ${eventName}`);
+    console.warn(`[Meta Pixel] fbq not available. Custom event ignored: ${eventName}`);
   }
 };

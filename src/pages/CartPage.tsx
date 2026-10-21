@@ -6,7 +6,7 @@ import { useCart } from "../context/CartContext";
 import { useInventory } from "../context/InventoryContext";
 import AnimatedSection from "../components/ui/AnimatedSection";
 import Button from "../components/ui/Button";
-import { trackEvent } from "../utils/pixel";
+import { trackPurchase, trackInitiateCheckout } from "../utils/pixel";
 
 export default function CartPage() {
   const { items, updateQuantity, removeItem, clearCart, subtotal, itemCount } = useCart();
@@ -68,7 +68,14 @@ export default function CartPage() {
       const data = await response.json();
       
       if (response.ok && data.success) {
-        trackEvent('Purchase', { value: total, currency: 'EGP' });
+        trackPurchase({
+          value: total,
+          currency: 'EGP',
+          contentIds: items.map(item => item.product.id),
+          contentName: items.map(item => item.product.name).join(', '),
+          contentType: 'product',
+          numItems: itemCount,
+        });
         clearCart();
         setIsCheckoutModalOpen(false);
         setName("");
@@ -274,7 +281,12 @@ export default function CartPage() {
                   className="w-full" 
                   size="lg" 
                   onClick={() => {
-                    trackEvent('InitiateCheckout');
+                    trackInitiateCheckout({
+                      value: total,
+                      currency: 'EGP',
+                      contentIds: items.map(item => item.product.id),
+                      numItems: itemCount,
+                    });
                     setIsCheckoutModalOpen(true);
                   }}
                 >

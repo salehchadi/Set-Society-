@@ -4,7 +4,7 @@
  */
 
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import Layout from "./components/layout/Layout";
 import HomePage from "./pages/HomePage";
 import ProductsPage from "./pages/ProductsPage";
@@ -12,7 +12,8 @@ import CartPage from "./pages/CartPage";
 import ReturnRefundPage from "./pages/ReturnRefundPage";
 import AboutPage from "./pages/AboutPage";
 import ProductDetailsPage from "./pages/ProductDetailsPage";
-import { trackEvent } from "./utils/pixel";
+import AdminPage from "./pages/AdminPage";
+import { trackPageView } from "./utils/pixel";
 
 /**
  * RouteTracker monitors route transitions and triggers PageView tracking events
@@ -20,14 +21,17 @@ import { trackEvent } from "./utils/pixel";
  */
 function RouteTracker() {
   const location = useLocation();
+  const isInitialMount = useRef(true);
 
   useEffect(() => {
-    // Track PageView on every route change
-    trackEvent("PageView", {
-      path: location.pathname,
-      search: location.search,
-    });
-  }, [location]);
+    // index.html already fires the initial PageView on page load.
+    // We only fire PageView on subsequent client-side navigation to avoid duplicates.
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+      return;
+    }
+    trackPageView(location.pathname);
+  }, [location.pathname, location.search]);
 
   return null;
 }
@@ -37,6 +41,7 @@ export default function App() {
     <BrowserRouter>
       <RouteTracker />
       <Routes>
+        {/* Public routes with shared layout */}
         <Route element={<Layout />}>
           <Route path="/" element={<HomePage />} />
           <Route path="/products" element={<ProductsPage />} />
@@ -45,6 +50,8 @@ export default function App() {
           <Route path="/returns" element={<ReturnRefundPage />} />
           <Route path="/about" element={<AboutPage />} />
         </Route>
+        {/* Admin route — no shared layout (has its own full-page design) */}
+        <Route path="/admin" element={<AdminPage />} />
       </Routes>
     </BrowserRouter>
   );

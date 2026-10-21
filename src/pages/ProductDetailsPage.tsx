@@ -8,7 +8,7 @@ import { useInventory } from "../context/InventoryContext";
 import AnimatedSection from "../components/ui/AnimatedSection";
 import Button from "../components/ui/Button";
 
-import { trackEvent } from "../utils/pixel";
+import { trackAddToCart, trackViewContent } from "../utils/pixel";
 
 export default function ProductDetailsPage() {
   const { id } = useParams<{ id: string }>();
@@ -26,6 +26,19 @@ export default function ProductDetailsPage() {
   useEffect(() => {
     if (product) {
       setSelectedSize(product.sizes[1] || product.sizes[0]);
+    }
+  }, [product?.id]);
+
+  // Track ViewContent when a product page is viewed — critical for Meta Ads funnel
+  useEffect(() => {
+    if (product) {
+      trackViewContent({
+        contentName: product.name,
+        contentCategory: product.category,
+        contentIds: [product.id],
+        value: product.price,
+        currency: 'EGP',
+      });
     }
   }, [product?.id]);
 
@@ -51,11 +64,12 @@ export default function ProductDetailsPage() {
 
   const handleAddToCart = () => {
     if (isSelectedSizeOutOfStock) return;
-    trackEvent('AddToCart', {
-      content_name: product.name,
-      content_category: product.category,
+    trackAddToCart({
+      contentName: product.name,
+      contentCategory: product.category,
+      contentIds: [product.id],
       value: product.price,
-      currency: 'EGP'
+      currency: 'EGP',
     });
     addItem(product, selectedSize);
     setAdded(true);
