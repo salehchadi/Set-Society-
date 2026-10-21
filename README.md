@@ -76,6 +76,16 @@ Meta Pixel tracking is centralized in [`src/utils/pixel.ts`](src/utils/pixel.ts)
 
 ---
 
+## ✦ Admin Dashboard & Inventory Control
+An authenticated admin dashboard is accessible at `/admin` (and via the discreet "Admin Portal" link in the footer):
+- **Authentication**: Secured with username/password credentials.
+- **Full Inventory Control**: View all 6 products with real-time stock counts and dynamic prices loaded directly from Google Sheets.
+- **Direct Sheet Sync**: Connect a lightweight Google Apps Script Web App to sync stock and price modifications directly to Google Sheets with 1 click.
+- **Data Export**: Instant formatted CSV export and copy-to-clipboard for quick manual backup and spreadsheet imports.
+- **Quick Filters**: Search by product name, ID, or size, and toggle out-of-stock sizes.
+
+---
+
 ## ✦ Phased Project Roadmap
 
 ### Phase 1: Foundation & Dynamic Catalog (Completed)
@@ -94,16 +104,13 @@ Meta Pixel tracking is centralized in [`src/utils/pixel.ts`](src/utils/pixel.ts)
 - [x] Resolve all strict TypeScript compiler warnings across pages (`npm run lint` 0 errors).
 - [x] Update documentation with Phase 2 completions.
 
-### Phase 3: Order Management & Instant Customer Connect (Next Phase)
-- [ ] Instant WhatsApp direct checkout option with prefilled formatted cart text.
-- [ ] Out-of-Stock cart item warning banners if stock changes while items are in cart.
-- [ ] Optional promo/coupon discount code engine.
-- [ ] Customer order receipt download/view.
-
-### Phase 4: Atelier Expansion & Performance (Future Phase)
-- [ ] Custom admin dashboard for order management and CSV export.
-- [ ] Multi-currency switcher (USD, EUR, SAR, AED).
-- [ ] Automated stock low alert webhooks.
+### Phase 3: Meta Pixel Mastery & Admin Inventory Control (Completed)
+- [x] Meta Pixel full e-commerce dataset parameters (Purchase, AddToCart, InitiateCheckout, ViewContent, PageView).
+- [x] Single-page application route tracking with PageView deduplication.
+- [x] Authenticated Admin Dashboard at `/admin` with username/password login.
+- [x] Live Google Sheets stock and price manager with direct write sync via Apps Script.
+- [x] Inventory CSV export/download and clipboard copy.
+- [x] Full build verification and deployment to production.
 
 ---
 
