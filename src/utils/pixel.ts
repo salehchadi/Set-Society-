@@ -5,22 +5,31 @@ declare global {
   }
 }
 
-const PIXEL_ID = "1811790967188190";
+export const PRIMARY_PIXEL_ID = "1566529875188469";
+export const SECONDARY_PIXEL_ID = "1540428294391853";
+export const PIXEL_IDS = [PRIMARY_PIXEL_ID, SECONDARY_PIXEL_ID];
 
 /**
  * Initializes the Meta Pixel.
  * The pixel script is already loaded via index.html's <script> tag.
- * This function ensures fbq is available and re-initializes if needed.
+ * This function ensures fbq is available and all active pixel IDs are initialized.
  */
 export const initPixel = (pixelId?: string) => {
   if (typeof window === "undefined") return;
 
-  const resolvedId = pixelId?.trim() || PIXEL_ID;
+  const idsToInit = new Set<string>(PIXEL_IDS);
+  if (pixelId && pixelId.trim() && pixelId !== "YOUR_PIXEL_ID") {
+    idsToInit.add(pixelId.trim());
+  }
+  const idList = Array.from(idsToInit);
 
-  // If already loaded and initialized (via index.html script), we're good
+  // If already loaded and initialized (via index.html script), ensure IDs are initialized
   if (window.fbq) {
+    idList.forEach((id) => {
+      window.fbq!("init", id);
+    });
     console.log(
-      `%c[Meta Pixel] Ready (ID: ${resolvedId})`,
+      `%c[Meta Pixel] Ready (IDs: ${idList.join(", ")})`,
       "color: #4caf50; font-weight: bold;"
     );
     return;
@@ -44,10 +53,12 @@ export const initPixel = (pixelId?: string) => {
     s.parentNode.insertBefore(t, s);
   })(window, document, "script", "https://connect.facebook.net/en_US/fbevents.js");
 
-  window.fbq("init", resolvedId);
-  window.fbq("track", "PageView");
+  idList.forEach((id) => {
+    window.fbq!("init", id);
+  });
+  window.fbq!("track", "PageView");
   console.log(
-    `%c[Meta Pixel] Initialized with ID: ${resolvedId}`,
+    `%c[Meta Pixel] Initialized with IDs: ${idList.join(", ")}`,
     "color: #4caf50; font-weight: bold;"
   );
 };

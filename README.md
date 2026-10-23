@@ -126,7 +126,7 @@ An authenticated admin dashboard is accessible at `/admin` (and via the discreet
 npm install
 
 # 2. Configure environment variables (.env)
-VITE_META_PIXEL_ID="1811790967188190"
+VITE_META_PIXEL_ID="1566529875188469"
 
 # 3. Start local development server
 npm run dev
